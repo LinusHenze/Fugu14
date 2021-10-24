@@ -1,0 +1,10 @@
+.DS_Store
+.build/
+/Packages
+xcuserdata/
+DerivedData/
+.swiftpm
+arm/iOS/Fugu14App/Fugu14App/jailbreakd
+arm/iOS/Fugu14App/build/
+tools/Fugu14_Pwn.ipa
+tools/Fugu14_Setup.ipa

@@ -1,0 +1,428 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		154F77E525EFEB7700675629 /* Fugu14App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154F77E425EFEB7700675629 /* Fugu14App.swift */; };
+		154F77E725EFEB7700675629 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154F77E625EFEB7700675629 /* ContentView.swift */; };
+		154F77E925EFEB7900675629 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 154F77E825EFEB7900675629 /* Assets.xcassets */; };
+		154F77EC25EFEB7900675629 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 154F77EB25EFEB7900675629 /* Preview Assets.xcassets */; };
+		154F77F825EFFC4800675629 /* closures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154F77F725EFFC4800675629 /* closures.swift */; };
+		154F77FB25EFFCE800675629 /* ClosurePwn in Frameworks */ = {isa = PBXBuildFile; productRef = 154F77FA25EFFCE800675629 /* ClosurePwn */; };
+		154F77FD25EFFCE800675629 /* JailbreakUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 154F77FC25EFFCE800675629 /* JailbreakUtils */; };
+		154F780325F0366900675629 /* utils.js in Resources */ = {isa = PBXBuildFile; fileRef = 154F780225F0366900675629 /* utils.js */; };
+		154F780525F0367400675629 /* setup.js in Resources */ = {isa = PBXBuildFile; fileRef = 154F780425F0367400675629 /* setup.js */; };
+		154F780725F0368500675629 /* runJailbreakd.js in Resources */ = {isa = PBXBuildFile; fileRef = 154F780625F0368500675629 /* runJailbreakd.js */; };
+		154F780925F03B8300675629 /* jailbreakd in Resources */ = {isa = PBXBuildFile; fileRef = 154F780825F03B8300675629 /* jailbreakd */; };
+		1569526925F91973006241D8 /* trustcache in Resources */ = {isa = PBXBuildFile; fileRef = 1569526625F91973006241D8 /* trustcache */; };
+		1569526A25F91973006241D8 /* tar in Resources */ = {isa = PBXBuildFile; fileRef = 1569526725F91973006241D8 /* tar */; };
+		1569526B25F91973006241D8 /* bootstrap.tar in Resources */ = {isa = PBXBuildFile; fileRef = 1569526825F91973006241D8 /* bootstrap.tar */; };
+		1569526F25F91A08006241D8 /* com.apple.analyticsd.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1569526E25F91A08006241D8 /* com.apple.analyticsd.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		154F77E125EFEB7700675629 /* Fugu14App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fugu14App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		154F77E425EFEB7700675629 /* Fugu14App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fugu14App.swift; sourceTree = "<group>"; };
+		154F77E625EFEB7700675629 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		154F77E825EFEB7900675629 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		154F77EB25EFEB7900675629 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		154F77ED25EFEB7900675629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		154F77F525EFF22100675629 /* ClosurePwn */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ClosurePwn; path = ../../../shared/ClosurePwn; sourceTree = "<group>"; };
+		154F77F625EFF22100675629 /* JailbreakUtils */ = {isa = PBXFileReference; lastKnownFileType = folder; name = JailbreakUtils; path = ../../../shared/JailbreakUtils; sourceTree = "<group>"; };
+		154F77F725EFFC4800675629 /* closures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = closures.swift; sourceTree = "<group>"; };
+		154F780225F0366900675629 /* utils.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = utils.js; sourceTree = "<group>"; };
+		154F780425F0367400675629 /* setup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = setup.js; sourceTree = "<group>"; };
+		154F780625F0368500675629 /* runJailbreakd.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = runJailbreakd.js; sourceTree = "<group>"; };
+		154F780825F03B8300675629 /* jailbreakd */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = jailbreakd; sourceTree = "<group>"; };
+		1569526625F91973006241D8 /* trustcache */ = {isa = PBXFileReference; lastKnownFileType = file; path = trustcache; sourceTree = "<group>"; };
+		1569526725F91973006241D8 /* tar */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = tar; sourceTree = "<group>"; };
+		1569526825F91973006241D8 /* bootstrap.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = bootstrap.tar; sourceTree = "<group>"; };
+		1569526C25F91A04006241D8 /* libjailbreak.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libjailbreak.dylib; sourceTree = "<group>"; };
+		1569526E25F91A08006241D8 /* com.apple.analyticsd.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.apple.analyticsd.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		154F77DE25EFEB7700675629 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				154F77FD25EFFCE800675629 /* JailbreakUtils in Frameworks */,
+				154F77FB25EFFCE800675629 /* ClosurePwn in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		154F77D825EFEB7700675629 = {
+			isa = PBXGroup;
+			children = (
+				154F77E325EFEB7700675629 /* Fugu14App */,
+				154F77E225EFEB7700675629 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		154F77E225EFEB7700675629 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				154F77E125EFEB7700675629 /* Fugu14App.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		154F77E325EFEB7700675629 /* Fugu14App */ = {
+			isa = PBXGroup;
+			children = (
+				15E513FF2637115500F75A03 /* Resources */,
+				154F77F425EFF21200675629 /* Packages */,
+				154F77E425EFEB7700675629 /* Fugu14App.swift */,
+				154F77E625EFEB7700675629 /* ContentView.swift */,
+				154F77F725EFFC4800675629 /* closures.swift */,
+				154F780225F0366900675629 /* utils.js */,
+				154F780425F0367400675629 /* setup.js */,
+				154F780625F0368500675629 /* runJailbreakd.js */,
+				154F77E825EFEB7900675629 /* Assets.xcassets */,
+				154F77ED25EFEB7900675629 /* Info.plist */,
+				154F77EA25EFEB7900675629 /* Preview Content */,
+			);
+			path = Fugu14App;
+			sourceTree = "<group>";
+		};
+		154F77EA25EFEB7900675629 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				154F77EB25EFEB7900675629 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		154F77F425EFF21200675629 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				154F77F525EFF22100675629 /* ClosurePwn */,
+				154F77F625EFF22100675629 /* JailbreakUtils */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		15E513FF2637115500F75A03 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				154F780825F03B8300675629 /* jailbreakd */,
+				1569526825F91973006241D8 /* bootstrap.tar */,
+				1569526725F91973006241D8 /* tar */,
+				1569526625F91973006241D8 /* trustcache */,
+				1569526C25F91A04006241D8 /* libjailbreak.dylib */,
+				1569526E25F91A08006241D8 /* com.apple.analyticsd.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		154F77E025EFEB7700675629 /* Fugu14App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 154F77F025EFEB7900675629 /* Build configuration list for PBXNativeTarget "Fugu14App" */;
+			buildPhases = (
+				154F77DD25EFEB7700675629 /* Sources */,
+				154F77DE25EFEB7700675629 /* Frameworks */,
+				154F77DF25EFEB7700675629 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fugu14App;
+			packageProductDependencies = (
+				154F77FA25EFFCE800675629 /* ClosurePwn */,
+				154F77FC25EFFCE800675629 /* JailbreakUtils */,
+			);
+			productName = Fugu14App;
+			productReference = 154F77E125EFEB7700675629 /* Fugu14App.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		154F77D925EFEB7700675629 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					154F77E025EFEB7700675629 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+				};
+			};
+			buildConfigurationList = 154F77DC25EFEB7700675629 /* Build configuration list for PBXProject "Fugu14App" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 154F77D825EFEB7700675629;
+			productRefGroup = 154F77E225EFEB7700675629 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				154F77E025EFEB7700675629 /* Fugu14App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		154F77DF25EFEB7700675629 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				154F780525F0367400675629 /* setup.js in Resources */,
+				1569526B25F91973006241D8 /* bootstrap.tar in Resources */,
+				1569526925F91973006241D8 /* trustcache in Resources */,
+				1569526A25F91973006241D8 /* tar in Resources */,
+				154F780925F03B8300675629 /* jailbreakd in Resources */,
+				1569526F25F91A08006241D8 /* com.apple.analyticsd.plist in Resources */,
+				154F780725F0368500675629 /* runJailbreakd.js in Resources */,
+				154F77EC25EFEB7900675629 /* Preview Assets.xcassets in Resources */,
+				154F780325F0366900675629 /* utils.js in Resources */,
+				154F77E925EFEB7900675629 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		154F77DD25EFEB7700675629 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				154F77E725EFEB7700675629 /* ContentView.swift in Sources */,
+				154F77F825EFFC4800675629 /* closures.swift in Sources */,
+				154F77E525EFEB7700675629 /* Fugu14App.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		154F77EE25EFEB7900675629 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		154F77EF25EFEB7900675629 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		154F77F125EFEB7900675629 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Fugu14App/Preview Content\"";
+				DEVELOPMENT_TEAM = 2JRT39ZN42;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Fugu14App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Fugu14App",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.linushenze.Fugu14App;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DISABLE_SAFETY_CHECKS = NO;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		154F77F225EFEB7900675629 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = arm64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Fugu14App/Preview Content\"";
+				DEVELOPMENT_TEAM = 2JRT39ZN42;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Fugu14App/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Fugu14App",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = de.linushenze.Fugu14App;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DISABLE_SAFETY_CHECKS = NO;
+				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		154F77DC25EFEB7700675629 /* Build configuration list for PBXProject "Fugu14App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				154F77EE25EFEB7900675629 /* Debug */,
+				154F77EF25EFEB7900675629 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		154F77F025EFEB7900675629 /* Build configuration list for PBXNativeTarget "Fugu14App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				154F77F125EFEB7900675629 /* Debug */,
+				154F77F225EFEB7900675629 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		154F77FA25EFFCE800675629 /* ClosurePwn */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ClosurePwn;
+		};
+		154F77FC25EFFCE800675629 /* JailbreakUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = JailbreakUtils;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 154F77D925EFEB7700675629 /* Project object */;
+}
