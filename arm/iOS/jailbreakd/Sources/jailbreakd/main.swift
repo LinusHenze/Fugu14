@@ -127,19 +127,22 @@ func showSimpleMessage(withTitle title: String, andMessage message: String) {
     ])
 }
 
-func doInstall(pe: PostExploitation) {
-    let result = pe.install()
+func doInstall(pe: PostExploitation, doUpdate: Bool = false) {
+    let result = pe.install(doUpdate: doUpdate)
     
     switch result {
     case .rebootRequired:
         showMessage(withOptions: [
             kCFUserNotificationAlertTopMostKey: 1 as NSNumber,
             kCFUserNotificationAlertHeaderKey: "Reboot required" as NSString,
-            kCFUserNotificationAlertMessageKey: "Fugu14 successfully installed the untether. To complete the installation, your device needs to be rebooted." as NSString,
+            kCFUserNotificationAlertMessageKey: "Fugu14 successfully \(doUpdate ? "updated" : "installed") the untether. To complete the \(doUpdate ? "update" : "installation"), your device needs to be rebooted." as NSString,
             kCFUserNotificationDefaultButtonTitleKey: "Reboot now" as NSString
         ])
         
-        reboot(0)
+        if reboot3(0x8000000000000000, 0) != 0 {
+            sync()
+            reboot(0)
+        }
         exit(0)
         
     case .ok:
@@ -168,7 +171,10 @@ func doUninstall() {
             kCFUserNotificationDefaultButtonTitleKey: "Reboot now" as NSString
         ])
         
-        reboot(0)
+        if reboot3(0x8000000000000000, 0) != 0 {
+            sync()
+            reboot(0)
+        }
         exit(0)
         
     case .noRestoreRequired:
@@ -186,7 +192,11 @@ func doSilentUninstall() {
     
     switch result {
     case .rebootRequired:
-        reboot(0)
+        if reboot3(0x8000000000000000, 0) != 0 {
+            sync()
+            reboot(0)
+        }
+        
     default:
         break
     }
@@ -216,10 +226,48 @@ func serverMain(pe: PostExploitation) -> Never {
             Logger.print("Received uninstall request!")
             doUninstall()
             
+        case "update":
+            Logger.print("Received update request!")
+            doInstall(pe: pe, doUpdate: true)
+            
         default:
             Logger.print("Received unknown command \(cmd)!")
         }
     }
+}
+
+// This is just for safety to allow users to restore without a pc if required
+// It's mostly for those who mess with the code (and having a safety feature is always nice)
+// USING FUGU14 WILL NOT CAUSE BOOTLOOPS UNLESS YOU EDIT THE CODE, OK?
+func handleBootFailure() -> Never {
+    let result = showMessage(withOptions: [
+        kCFUserNotificationAlertTopMostKey: 1 as NSNumber,
+        kCFUserNotificationAlertHeaderKey: "Fugu14 Untether Safe Mode" as NSString,
+        kCFUserNotificationAlertMessageKey: "A problem repeatedly occurred while running the untether. It has therefore been disabled during this boot. Please consider restoring your rootfs." as NSString,
+        kCFUserNotificationDefaultButtonTitleKey: "OK" as NSString,
+        kCFUserNotificationAlternateButtonTitleKey: "Restore RootFS" as NSString
+    ])
+    
+    if result != kCFUserNotificationDefaultResponse {
+        // Do restore
+        let res = PostExploitation.uninstall()
+        
+        switch res {
+        case .rebootRequired:
+            if reboot3(0x8000000000000000, 0) != 0 {
+                sync()
+                reboot(0)
+            }
+            
+        case .failed(reason: let reason):
+            showSimpleMessage(withTitle: "RootFS restore failed", andMessage: "Error: \(reason)")
+            
+        default:
+            break
+        }
+    }
+    
+    dispatchMain()
 }
 
 if getuid() != 0 {
@@ -263,6 +311,8 @@ if action == "ping" {
     Logger.logFileHandle = logOut
 }
 
+var errorOccuredDuringLastBoot = false
+
 if action == "untether" {
     if access("/", W_OK) == 0 {
         // Untether already ran, sleep forever
@@ -273,6 +323,48 @@ if action == "untether" {
         }
         
         dispatchMain()
+    }
+    
+    if getenv("FUGU14_ERR_CHECK_DONE") == nil {
+        // Safety: Check if we failed a few times
+        // See the comment above handleBootFailure
+        do {
+            let counterData = try Data(contentsOf: URL(fileURLWithPath: "/private/var/.Fugu14RebootCounter"))
+            let counterStr = String(decoding: counterData, as: UTF8.self)
+            let counter = Int(counterStr) ?? -1 // Default to an invalid counter value to force re-creation of the file
+            if counter > 4 {
+                // OOOPS, we shouldn't run the untether again...
+                // Reset counter and show message
+                try? "1".data(using: .utf8)?.write(to: URL(fileURLWithPath: "/private/var/.Fugu14RebootCounter"))
+                handleBootFailure()
+            } else if counter < 0 {
+                // ??? Counter file contains garbage
+                // Reset counter
+                try? "1".data(using: .utf8)?.write(to: URL(fileURLWithPath: "/private/var/.Fugu14RebootCounter"))
+            } else {
+                // Increase counter and write to file
+                try? String(counter + 1).data(using: .utf8)?.write(to: URL(fileURLWithPath: "/private/var/.Fugu14RebootCounter"))
+                
+                if counter > 1 {
+                    errorOccuredDuringLastBoot = true
+                }
+            }
+        } catch {
+            // Either no file or file contains garbage
+            // Reset counter
+            try? "1".data(using: .utf8)?.write(to: URL(fileURLWithPath: "/private/var/.Fugu14RebootCounter"))
+        }
+        
+        // Force counter file to be written now
+        sync()
+        
+        // Write env vars
+        setenv("FUGU14_ERR_CHECK_DONE", "1", 1)
+        if errorOccuredDuringLastBoot {
+            setenv("FUGU14_PREV_FAILED", "1", 1)
+        }
+    } else if getenv("FUGU14_PREV_FAILED") != nil {
+        errorOccuredDuringLastBoot = true
     }
     
     let state = getUntetherState()
@@ -306,6 +398,9 @@ case "untether":
         run(prog: "/.Fugu14Untether/bin/launchctl", args: ["load",   "/Library/LaunchDaemons/com.apple.analyticsd.plist"])
     }
     
+    // Fix the power management bug
+    try pe.unsafelyUnwrapped.fixPMBug()
+    
     // Attempt to mount, then launch jailbreak server
     if case .ok = pe.unsafelyUnwrapped.untether() {
         do {
@@ -337,10 +432,17 @@ case "untether":
             // Deinit kernel call, not required anymore
             pe.unsafelyUnwrapped.deinitKernelCall()
             
+            // Reset boot counter file as we succeded
+            try? "0".data(using: .utf8)?.write(to: URL(fileURLWithPath: "/private/var/.Fugu14RebootCounter"))
+            
             // Check if we should show AltStore message
             if access("/.Fugu14Untether/.AltStoreInstall", F_OK) == 0 {
                 showSimpleMessage(withTitle: "Untether installed", andMessage: "To continue installing your jailbreak, please open AltStore and follow the instructions.")
                 unlink("/.Fugu14Untether/.AltStoreInstall")
+            }
+            
+            if errorOccuredDuringLastBoot {
+                showSimpleMessage(withTitle: "Fugu14 Untether", andMessage: "The untether failed to exploit the kernel on the previous boot and had to restart the device. This is not an issue and you can ignore this message.")
             }
             
             // Also launch iDownload
