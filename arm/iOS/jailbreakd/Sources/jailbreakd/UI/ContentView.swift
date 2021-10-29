@@ -10,6 +10,8 @@ import SwiftUI
 import UIKit
 import externalCStuff
 
+let installButtonStr = altStoreBuild ? "Install Untether" : "Jailbreak + Untether"
+
 struct ContentView: View {
     let alreadyInstalled: Bool
     @State var labelText = ""
@@ -18,22 +20,39 @@ struct ContentView: View {
     var body: some View {
         if showButton {
             ZStack {
-                Button(alreadyInstalled ? "Restore rootFS" : "Jailbreak + Untether", action: {
-                    showButton = false
-                    DispatchQueue(label: "Fugu14").async {
-                        if alreadyInstalled {
-                            _ = launchServer(uninstall: true)
-                        } else {
-                            if let comm = launchServer() {
-                                doInstall(comm: comm)
+                VStack {
+                    Button(alreadyInstalled ? "Restore RootFS" : installButtonStr, action: {
+                        showButton = false
+                        DispatchQueue(label: "Fugu14").async {
+                            if alreadyInstalled {
+                                _ = launchServer(uninstall: true)
+                            } else {
+                                if let comm = launchServer() {
+                                    doInstall(comm: comm)
+                                }
                             }
                         }
+                    })
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .foregroundColor(Color.white)
+                    
+                    if alreadyInstalled {
+                        Button("Update Untether", action: {
+                            showButton = false
+                            DispatchQueue(label: "Fugu14").async {
+                                if let comm = launchServer() {
+                                    doUpdate(comm: comm)
+                                }
+                            }
+                        })
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .foregroundColor(Color.white)
                     }
-                })
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .foregroundColor(Color.white)
+                }
                 
                 VStack {
                     Spacer()
@@ -154,6 +173,11 @@ struct ContentView: View {
     func doUninstall(comm: ProcessCommunication) {
         print("Requesting uninstall")
         comm.sendArg("uninstall")
+    }
+    
+    func doUpdate(comm: ProcessCommunication) {
+        print("Requesting update")
+        comm.sendArg("update")
     }
 }
 

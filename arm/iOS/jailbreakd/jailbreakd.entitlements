@@ -25,6 +25,7 @@
 	<key>com.apple.security.iokit-user-client-class</key>
 	<array>
 		<string>IOUserServer</string>
+		<string>RootDomainUserClient</string>
 	</array>
 	<key>com.apple.private.apfs.revert-to-snapshot</key>
 	<true/>
@@ -75,6 +76,12 @@
 	<key>allow-softwareupdated</key>
 	<true/>
 	<key>com.apple.rootless.restricted-block-devices</key>
+	<true/>
+	<key>com.apple.developer.driverkit.transport.hid</key>
+	<true/>
+	<key>com.apple.developer.driverkit.builtin</key>
+	<true/>
+	<key>com.apple.private.kernel.get-kext-info</key>
 	<true/>
 </dict>
 </plist>
