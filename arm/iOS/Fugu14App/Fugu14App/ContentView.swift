@@ -13,12 +13,20 @@ let altStoreBuild = false
 
 struct ContentView: View {
     let isPreview: Bool
-    @State var labelText = ""
-    @State var showButton = true
-    @State var showAlert  = false
+    let jailbroken: Bool
+    @State var labelText   = ""
+    @State var showButton  = true
+    @State var showAlert   = false
+    @State var showJBAlert = true
     
     var body: some View {
-        if showButton {
+        if jailbroken {
+            Text("Please reboot into the non-jailbroken state to use the Fugu14 App")
+                .padding()
+                .alert(isPresented: self.$showJBAlert) {
+                    Alert(title: Text("Reboot required"), message: Text("Please reboot into the non-jailbroken state to use the Fugu14 App"), dismissButton: .default(Text("OK")))
+                }
+        } else if showButton {
             ZStack {
                 Button("Setup Fugu14", action: {
                     showButton = false
@@ -69,6 +77,7 @@ struct ContentView: View {
     
     init(isPreview: Bool = false) {
         self.isPreview = isPreview
+        jailbroken = (getenv("DYLD_INSERT_LIBRARIES") != nil)
     }
     
     func print(_ text: String) {

@@ -101,6 +101,10 @@ class KeybagClosure: PwnClosure {
                 pidBuf
             ]).insertNow()
             
+            try callCFunc(name: "sleep", arguments: [
+                .absolute(address: 10)
+            ]).insertNow()
+            
             try callCFunc(name: "exit", arguments: [
                 .absolute(address: 99)
             ]).insertNow()
