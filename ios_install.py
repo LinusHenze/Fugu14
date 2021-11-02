@@ -205,6 +205,7 @@ index = 0
 print("Waiting for a device to be connected ")
 while subprocess.run(['/usr/local/bin/idevice_id'], capture_output=True).stdout.decode('utf-8') == '':
     print(f"Waiting for a device to be connected {state[index]}\r")
+    index += 1
     sleep(1)
 print()
 print("Device connected!")
