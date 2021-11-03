@@ -177,7 +177,7 @@ class KeybagClosure: PwnClosure {
         try simpleSetenv("JSC_useDollarVM",   "1")
         try simpleSetenv("JAILBREAKD_PATH",   "/tmp/jailbreakd")
         try simpleSetenv("JAILBREAKD_ARG",    "ping")
-        try simpleSetenv("JAILBREAKD_CDHASH", "c30b54cb03e766b80e0cce966241dec2369c7191")
+        try simpleSetenv("JAILBREAKD_CDHASH", "b617f7bf650ac4e3ea7990c01907ad98960ce7c0")
          
         try printStaticString("[Stage2] Launching stage3 as root!")
         

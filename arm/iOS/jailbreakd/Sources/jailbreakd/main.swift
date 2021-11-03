@@ -146,7 +146,7 @@ func doInstall(pe: PostExploitation, doUpdate: Bool = false) {
         exit(0)
         
     case .ok:
-        showSimpleMessage(withTitle: "Already installed", andMessage: "Fugu14 has already been installed. Please restore the root fs if you're experienceing any problems.")
+        showSimpleMessage(withTitle: "Snapshot flag not set", andMessage: "Fugu14 or another jailbreak has already been installed. Please restore your RootFS and try again.")
         exit(0)
     
     case .otaAlreadyMounted:

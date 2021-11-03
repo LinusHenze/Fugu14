@@ -32,4 +32,7 @@ int     posix_spawnattr_set_persona_gid_np(const posix_spawnattr_t * __restrict,
 
 uint64_t reboot3(uint64_t how, uint64_t unk);
 
+#define PROC_ALL_PIDS 1U
+int proc_listpids(uint32_t type, uint32_t typeinfo, void *buffer, int buffersize);
+
 #endif /* externalCStuff_h */

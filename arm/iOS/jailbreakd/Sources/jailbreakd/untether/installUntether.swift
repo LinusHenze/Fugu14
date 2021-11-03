@@ -71,9 +71,8 @@ func installSlowUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
     
     Logger.print("Writing JS files")
     try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu14Untether", withIntermediateDirectories: false, attributes: nil)
-    if !isUpdate {
-        try FileManager.default.createSymbolicLink(atPath: mountPath + "/.Fugu14Untether/stage2", withDestinationPath: "/System/Library/CoreServices/ReportCrash")
-    }
+    try? FileManager.default.removeItem(atPath: mountPath + "/.Fugu14Untether/stage2")
+    try FileManager.default.createSymbolicLink(atPath: mountPath + "/.Fugu14Untether/stage2", withDestinationPath: "/System/Library/CoreServices/ReportCrash")
     try jsUtilsData.write(toFile: mountPath + "/.Fugu14Untether/utils.js", atomically: false, encoding: .utf8)
     try ensureNoDataProtection(mountPath + "/.Fugu14Untether/utils.js")
     try jsSetupData.write(toFile: mountPath + "/.Fugu14Untether/setup.js", atomically: false, encoding: .utf8)
@@ -105,34 +104,38 @@ func installSlowUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
     if !isUpdate {
         Logger.print("Setting HOME")
         let masterPasswd = try! String(contentsOf: URL(fileURLWithPath: "/etc/master.passwd"))
-        var lines = masterPasswd.split(separator: "\n")
-        var nMasterPasswd = ""
-        for line in lines {
-            if line.starts(with: "_analyticsd") {
-                nMasterPasswd.append("_analyticsd:*:264:264::0:0:Haxx Daemon:" + untetherContainerPath + ":/usr/bin/false\n")
-                nMasterPasswd.append(line.replacingOccurrences(of: "_analyticsd", with: "_nanalyticsd") + "\n")
-            } else {
-                nMasterPasswd.append(line + "\n")
+        if !masterPasswd.contains("_nanalyticsd") {
+            let lines = masterPasswd.split(separator: "\n")
+            var nMasterPasswd = ""
+            for line in lines {
+                if line.starts(with: "_analyticsd") {
+                    nMasterPasswd.append("_analyticsd:*:264:264::0:0:Haxx Daemon:" + untetherContainerPath + ":/usr/bin/false\n")
+                    nMasterPasswd.append(line.replacingOccurrences(of: "_analyticsd", with: "_nanalyticsd") + "\n")
+                } else {
+                    nMasterPasswd.append(line + "\n")
+                }
             }
+            
+            try nMasterPasswd.write(toFile: mountPath + "/etc/master.passwd", atomically: true, encoding: .utf8)
+            try ensureNoDataProtection(mountPath + "/etc/master.passwd")
         }
-        
-        try nMasterPasswd.write(toFile: mountPath + "/etc/master.passwd", atomically: true, encoding: .utf8)
-        try ensureNoDataProtection(mountPath + "/etc/master.passwd")
         
         let passwd = try! String(contentsOf: URL(fileURLWithPath: "/etc/passwd"))
-        lines = passwd.split(separator: "\n")
-        var nPasswd = ""
-        for line in lines {
-            if line.starts(with: "_analyticsd") {
-                nPasswd.append("_analyticsd:*:264:264:Haxx Daemon:" + untetherContainerPath + ":/usr/bin/false\n")
-                nPasswd.append(line.replacingOccurrences(of: "_analyticsd", with: "_nanalyticsd") + "\n")
-            } else {
-                nPasswd.append(line + "\n")
+        if !passwd.contains("_nanalyticsd") {
+            let lines = passwd.split(separator: "\n")
+            var nPasswd = ""
+            for line in lines {
+                if line.starts(with: "_analyticsd") {
+                    nPasswd.append("_analyticsd:*:264:264:Haxx Daemon:" + untetherContainerPath + ":/usr/bin/false\n")
+                    nPasswd.append(line.replacingOccurrences(of: "_analyticsd", with: "_nanalyticsd") + "\n")
+                } else {
+                    nPasswd.append(line + "\n")
+                }
             }
+            
+            try nPasswd.write(toFile: mountPath + "/etc/passwd", atomically: true, encoding: .utf8)
+            try ensureNoDataProtection(mountPath + "/etc/passwd")
         }
-        
-        try nPasswd.write(toFile: mountPath + "/etc/passwd", atomically: true, encoding: .utf8)
-        try ensureNoDataProtection(mountPath + "/etc/passwd")
     }
     
     Logger.print("Replacing target")
