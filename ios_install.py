@@ -109,7 +109,7 @@ print("Patched")
 print("Compiling Fugu14App")
 
 try:
-    subprocess.run(["xcodebuild", "-scheme", "Fugu14App", "-derivedDataPath", "build"], check=True, cwd="arm/iOS/Fugu14App/")
+    subprocess.run(["xcodebuild", "-scheme", "Fugu14App", "-derivedDataPath", "build", "-destination", "generic/platform=iOS"], check=True, cwd="arm/iOS/Fugu14App/")
 except subprocess.CalledProcessError as e:
     print(f"Failed to build Fugu14App! Exit status: {e.returncode}")
     print("If the build failed due to a codesign error, open arm/iOS/Fugu14App/Fugu14App.xcodeproj in Xcode")
