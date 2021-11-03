@@ -123,7 +123,7 @@ print("Afterwards, open the *largest* dmg in it (containing the root file system
 getAnswer("Press enter once you are done or Ctrl+C to abort...")
 
 while True:
-    mntPath = getAnswer("Please enter the path where the dmg is mounted: ")
+    mntPath = getAnswer("Please enter the path where the dmg is mounted: ").rstrip()
     if not os.access(mntPath, os.F_OK):
         print("Mount path does not exist!")
         continue
