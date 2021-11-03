@@ -2,6 +2,21 @@
 
 import subprocess
 import os
+from time import sleep
+
+def autodetectSigningCertificate():
+    out = subprocess.run(['security', 'find-identity'], check=True, capture_output=True)
+    csIdentity=None
+    foundInvalid=True
+    for line in out.stdout.decode('utf-8').split('\n'):
+        if line.startswith('  1) '):
+            # yay there's a valid identity
+            if(foundInvalid):
+                foundInvalid=False
+                continue
+            csIdentity = line[47:-1]
+            print(f'codesign: found codesign identity {csIdentity}')
+    return csIdentity
 
 def getAnswer(text):
     try:
@@ -9,6 +24,28 @@ def getAnswer(text):
     except KeyboardInterrupt:
         print("\nCtrl+C pressed, aborting")
         exit(-2)
+
+def depcheck_start():
+    if not os.path.exists("/Applications/Xcode.app"):
+        print("depcheck: error: xcode not installed")
+        exit(-3)
+    print("depcheck: found: xcode")
+    if os.path.exists("/usr/local/bin/brew"):
+        print("depcheck: found: homebrew")
+        if 'No avaliable' not in subprocess.run(['/usr/local/bin/brew', 'list', 'usbmuxd'], capture_output=True).stdout.decode('utf-8'):
+            print("depcheck: found: usbmuxd")
+        else:
+            print("depcheck: error: usbmuxd not found")
+            exit(-3)
+        if 'No avaliable' not in subprocess.run(['/usr/local/bin/brew', 'list', 'ideviceinstaller'], capture_output=True).stdout.decode('utf-8'):
+            print("depcheck: found: ideviceinstaller")
+        else:
+            print("depcheck: error: ideviceinstaller not found")
+            exit(-3)
+    else:
+        print("depcheck: warn: homebrew not found")
+        print("depcheck: warn: cannot check for `usbmuxd`")
+        print("depcheck: warn: cannot check for `ideviceinstaller`")
 
 print("Welcome to the Fugu14 iOS installer.")
 print("This script will build and install Fugu14 on your device.")
@@ -19,6 +56,9 @@ print("    - You need the IPSW for your device, *unzipped*")
 print("    - You need to have Xcode installed")
 print("    - You need to have iproxy and ideviceinstaller installed (brew install usbmuxd ideviceinstaller)")
 getAnswer("Press enter to continue or Ctrl+C to abort...")
+
+print("Starting depchecker")
+depcheck_start()
 
 print("You will now be asked a few questions")
 
@@ -35,7 +75,15 @@ while True:
         print("Please answer yes or no!")
 
 if build_jailbreakd:
-    csIdentity = getAnswer("What is the name of your iOS Signing Certificate? [Apple Dev] ")
+    csIdentity = autodetectSigningCertificate() # attempt to autodetect cs identity from keychain
+    if csIdentity == None:
+        print("warning: no valid codesigning identities found! manual input required.")
+        csIdentity = getAnswer("What is the name of your iOS Signing Certificate? [Apple Dev] ")
+    else:
+        if (getAnswer(f"Fugu14 has detected a valid signing certificate ({csIdentity}). Do you want to use it? [Y/n]").lower() == "n"):
+            csIdentity = getAnswer("What is the name of your iOS Signing Certificate? [Apple Dev] ")
+        else:
+            print("Using detected codesign identity.")
     if csIdentity == "":
         csIdentity = "Apple Dev"
 
@@ -150,6 +198,17 @@ print("IPAs created")
 
 print("Please make sure your device is connected via USB, unlocked and paired to this Mac")
 getAnswer("Press enter to continue or Ctrl+C to abort...")
+
+state = ['|', '/', '-', '\']
+index = 0
+
+print("Waiting for a device to be connected ")
+while subprocess.run(['/usr/local/bin/idevice_id'], capture_output=True).stdout.decode('utf-8') == '':
+    print(f"Waiting for a device to be connected {state[index]}\r")
+    index += 1
+    sleep(1)
+print()
+print("Device connected!")
 
 print("Removing Fugu14App in case it is installed...")
 
