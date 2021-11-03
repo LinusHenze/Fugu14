@@ -5,7 +5,7 @@ The CVE numbers of the vulnerabilities are: CVE-2021-30740, CVE-2021-30768, CVE-
 
 # Supported Devices/iOS Versions
 
-Fugu14 *should* support all arm64e devices (iPhone XS and newer) on iOS 14.3 - 14.5.1.  
+Fugu14 *should* support all arm64e devices (iPhone XS/XR and newer) on iOS 14.3 - 14.5.1.  
 Support for lower versions (down to 14.2) can be added by editing `arm/shared/ClosurePwn/Sources/ClosurePwn/PwnClosure.swift` and `arm/shared/KernelExploit/Sources/KernelExploit/offsets.swift`.  
 
 arm64 devices are not supported because the exploit to install the Fugu14 App does not work on these devices.  
