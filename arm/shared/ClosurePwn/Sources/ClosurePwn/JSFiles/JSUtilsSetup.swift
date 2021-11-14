@@ -9,7 +9,7 @@
 public let jsUtilsData = """
 //
 //  utils.js
-//  Fugu14
+//  Fugu15
 //
 //  Based on crash_kernel.js from the iOS 12.4 iMessage exploit by Samuel Groß
 //  See https://bugs.chromium.org/p/project-zero/issues/detail?id=1917#c6
@@ -333,7 +333,7 @@ function addrof(obj) {
 public let jsSetupData = """
 //
 //  setup.js
-//  Fugu14
+//  Fugu15
 //
 //  Based on crash_kernel.js from the iOS 12.4 iMessage exploit by Samuel Groß
 //  See https://bugs.chromium.org/p/project-zero/issues/detail?id=1917#c6
