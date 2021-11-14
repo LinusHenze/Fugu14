@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		154F77E525EFEB7700675629 /* Fugu14App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154F77E425EFEB7700675629 /* Fugu14App.swift */; };
+		154F77E525EFEB7700675629 /* Fugu15App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154F77E425EFEB7700675629 /* Fugu15App.swift */; };
 		154F77E725EFEB7700675629 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154F77E625EFEB7700675629 /* ContentView.swift */; };
 		154F77E925EFEB7900675629 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 154F77E825EFEB7900675629 /* Assets.xcassets */; };
 		154F77EC25EFEB7900675629 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 154F77EB25EFEB7900675629 /* Preview Assets.xcassets */; };
@@ -25,8 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		154F77E125EFEB7700675629 /* Fugu14App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fugu14App.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		154F77E425EFEB7700675629 /* Fugu14App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fugu14App.swift; sourceTree = "<group>"; };
+		154F77E125EFEB7700675629 /* Fugu15App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fugu15App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		154F77E425EFEB7700675629 /* Fugu15App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fugu15App.swift; sourceTree = "<group>"; };
 		154F77E625EFEB7700675629 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		154F77E825EFEB7900675629 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		154F77EB25EFEB7900675629 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 		154F77D825EFEB7700675629 = {
 			isa = PBXGroup;
 			children = (
-				154F77E325EFEB7700675629 /* Fugu14App */,
+				154F77E325EFEB7700675629 /* Fugu15App */,
 				154F77E225EFEB7700675629 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -69,17 +69,17 @@
 		154F77E225EFEB7700675629 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				154F77E125EFEB7700675629 /* Fugu14App.app */,
+				154F77E125EFEB7700675629 /* Fugu15App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		154F77E325EFEB7700675629 /* Fugu14App */ = {
+		154F77E325EFEB7700675629 /* Fugu15App */ = {
 			isa = PBXGroup;
 			children = (
 				15E513FF2637115500F75A03 /* Resources */,
 				154F77F425EFF21200675629 /* Packages */,
-				154F77E425EFEB7700675629 /* Fugu14App.swift */,
+				154F77E425EFEB7700675629 /* Fugu15App.swift */,
 				154F77E625EFEB7700675629 /* ContentView.swift */,
 				154F77F725EFFC4800675629 /* closures.swift */,
 				154F780225F0366900675629 /* utils.js */,
@@ -89,7 +89,7 @@
 				154F77ED25EFEB7900675629 /* Info.plist */,
 				154F77EA25EFEB7900675629 /* Preview Content */,
 			);
-			path = Fugu14App;
+			path = Fugu15App;
 			sourceTree = "<group>";
 		};
 		154F77EA25EFEB7900675629 /* Preview Content */ = {
@@ -125,9 +125,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		154F77E025EFEB7700675629 /* Fugu14App */ = {
+		154F77E025EFEB7700675629 /* Fugu15App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 154F77F025EFEB7900675629 /* Build configuration list for PBXNativeTarget "Fugu14App" */;
+			buildConfigurationList = 154F77F025EFEB7900675629 /* Build configuration list for PBXNativeTarget "Fugu15App" */;
 			buildPhases = (
 				154F77DD25EFEB7700675629 /* Sources */,
 				154F77DE25EFEB7700675629 /* Frameworks */,
@@ -137,13 +137,13 @@
 			);
 			dependencies = (
 			);
-			name = Fugu14App;
+			name = Fugu15App;
 			packageProductDependencies = (
 				154F77FA25EFFCE800675629 /* ClosurePwn */,
 				154F77FC25EFFCE800675629 /* JailbreakUtils */,
 			);
-			productName = Fugu14App;
-			productReference = 154F77E125EFEB7700675629 /* Fugu14App.app */;
+			productName = Fugu15App;
+			productReference = 154F77E125EFEB7700675629 /* Fugu15App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -160,7 +160,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 154F77DC25EFEB7700675629 /* Build configuration list for PBXProject "Fugu14App" */;
+			buildConfigurationList = 154F77DC25EFEB7700675629 /* Build configuration list for PBXProject "Fugu15App" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -173,7 +173,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				154F77E025EFEB7700675629 /* Fugu14App */,
+				154F77E025EFEB7700675629 /* Fugu15App */,
 			);
 		};
 /* End PBXProject section */
@@ -205,7 +205,7 @@
 			files = (
 				154F77E725EFEB7700675629 /* ContentView.swift in Sources */,
 				154F77F825EFFC4800675629 /* closures.swift in Sources */,
-				154F77E525EFEB7700675629 /* Fugu14App.swift in Sources */,
+				154F77E525EFEB7700675629 /* Fugu15App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,10 +337,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Fugu14App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Fugu15App/Preview Content\"";
 				DEVELOPMENT_TEAM = 2JRT39ZN42;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Fugu14App/Info.plist;
+				INFOPLIST_FILE = Fugu15App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -348,9 +348,9 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Fugu14App",
+					"$(PROJECT_DIR)/Fugu15App",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.linushenze.Fugu14App;
+				PRODUCT_BUNDLE_IDENTIFIER = de.linushenze.Fugu15App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_DISABLE_SAFETY_CHECKS = NO;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
@@ -367,10 +367,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Fugu14App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Fugu15App/Preview Content\"";
 				DEVELOPMENT_TEAM = 2JRT39ZN42;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Fugu14App/Info.plist;
+				INFOPLIST_FILE = Fugu15App/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -378,9 +378,9 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Fugu14App",
+					"$(PROJECT_DIR)/Fugu15App",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.linushenze.Fugu14App;
+				PRODUCT_BUNDLE_IDENTIFIER = de.linushenze.Fugu15App;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_DISABLE_SAFETY_CHECKS = NO;
 				SWIFT_ENFORCE_EXCLUSIVE_ACCESS = off;
@@ -393,7 +393,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		154F77DC25EFEB7700675629 /* Build configuration list for PBXProject "Fugu14App" */ = {
+		154F77DC25EFEB7700675629 /* Build configuration list for PBXProject "Fugu15App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				154F77EE25EFEB7900675629 /* Debug */,
@@ -402,7 +402,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		154F77F025EFEB7900675629 /* Build configuration list for PBXNativeTarget "Fugu14App" */ = {
+		154F77F025EFEB7900675629 /* Build configuration list for PBXNativeTarget "Fugu15App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				154F77F125EFEB7900675629 /* Debug */,
