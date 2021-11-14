@@ -1,7 +1,7 @@
 # Fugu14 - Untethered iOS 15 Jailbreak, Also Happy November Fools!
 
 Fugu14 is an (most definitely incomplete) iOS 15 Jailbreak, including an untether (persistence), kernel exploit, kernel PAC bypass and PPL bypass.
-The CVE numbers of the vulnerabilities are: IOMFB_integer_overflow_poc.
+The CVE numbers of the vulnerabilities are: CVE-2021-30883.
 
 # Supported Devices/iOS Versions
 
