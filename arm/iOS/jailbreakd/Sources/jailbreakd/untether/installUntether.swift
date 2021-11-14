@@ -13,8 +13,8 @@ import JailbreakUtils
 // If something has "ps" in it's name, it's actually ReportCrash
 // I've used ps before, but 14.5 broke it (can only use task ports for reading)
 
-let untetherContainerPath   = "/private/var/mobile/Containers/Data/Fugu14Untether"
-let untetherClFolder        = "/private/var/Fugu14UntetherDYLD"
+let untetherContainerPath   = "/private/var/mobile/Containers/Data/Fugu15Untether"
+let untetherClFolder        = "/private/var/Fugu15UntetherDYLD"
 let untetherClPathAnalytics = untetherClFolder + "/Caches/com.apple.dyld/analyticsd.closure"
 let untetherClPathLogd      = untetherClFolder + "/Caches/com.apple.dyld/logd.closure"
 let untetherClPathPs        = untetherClFolder + "/Caches/com.apple.dyld/stage2.closure"
@@ -41,7 +41,7 @@ func installSlowUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
     let targetExePath = mountPath + "/System/Library/PrivateFrameworks/CoreAnalytics.framework/Support/analyticsd"
     let replacementExePath = "/usr/libexec/keybagd"
     
-    Logger.print("Installing the Fugu14 untether")
+    Logger.print("Installing the Fugu15 untether")
     
     guard access(untetherClPathLogd, F_OK) != 0 else {
         // !!!
@@ -70,33 +70,33 @@ func installSlowUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
     try FileManager.default.createSymbolicLink(atPath: untetherContainerPath + "/Library", withDestinationPath: untetherClFolder)
     
     Logger.print("Writing JS files")
-    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu14Untether", withIntermediateDirectories: false, attributes: nil)
-    try? FileManager.default.removeItem(atPath: mountPath + "/.Fugu14Untether/stage2")
-    try FileManager.default.createSymbolicLink(atPath: mountPath + "/.Fugu14Untether/stage2", withDestinationPath: "/System/Library/CoreServices/ReportCrash")
-    try jsUtilsData.write(toFile: mountPath + "/.Fugu14Untether/utils.js", atomically: false, encoding: .utf8)
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/utils.js")
-    try jsSetupData.write(toFile: mountPath + "/.Fugu14Untether/setup.js", atomically: false, encoding: .utf8)
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/setup.js")
-    try jsKernelExploitLauncherData.write(toFile: mountPath + "/.Fugu14Untether/launchKernelExploit.js", atomically: false, encoding: .utf8)
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/launchKernelExploit.js")
+    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu15Untether", withIntermediateDirectories: false, attributes: nil)
+    try? FileManager.default.removeItem(atPath: mountPath + "/.Fugu15Untether/stage2")
+    try FileManager.default.createSymbolicLink(atPath: mountPath + "/.Fugu15Untether/stage2", withDestinationPath: "/System/Library/CoreServices/ReportCrash")
+    try jsUtilsData.write(toFile: mountPath + "/.Fugu15Untether/utils.js", atomically: false, encoding: .utf8)
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/utils.js")
+    try jsSetupData.write(toFile: mountPath + "/.Fugu15Untether/setup.js", atomically: false, encoding: .utf8)
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/setup.js")
+    try jsKernelExploitLauncherData.write(toFile: mountPath + "/.Fugu15Untether/launchKernelExploit.js", atomically: false, encoding: .utf8)
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/launchKernelExploit.js")
     
     Logger.print("Writing untether binary")
-    try? FileManager.default.removeItem(atPath: mountPath + "/.Fugu14Untether/jailbreakd")
-    try FileManager.default.copyItem(atPath: exePath, toPath: mountPath + "/.Fugu14Untether/jailbreakd")
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/jailbreakd")
+    try? FileManager.default.removeItem(atPath: mountPath + "/.Fugu15Untether/jailbreakd")
+    try FileManager.default.copyItem(atPath: exePath, toPath: mountPath + "/.Fugu15Untether/jailbreakd")
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/jailbreakd")
     
     Logger.print("Writing trust cache")
-    try? FileManager.default.removeItem(atPath: mountPath + "/.Fugu14Untether/trustcache")
-    try FileManager.default.copyItem(atPath: trustcache, toPath: mountPath + "/.Fugu14Untether/trustcache")
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/trustcache")
+    try? FileManager.default.removeItem(atPath: mountPath + "/.Fugu15Untether/trustcache")
+    try FileManager.default.copyItem(atPath: trustcache, toPath: mountPath + "/.Fugu15Untether/trustcache")
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/trustcache")
     
     Logger.print("Writing exploit")
-    let datAnalytics = try! KeybagClosure(name: "Fugu14Untether").getClosure().emit()
+    let datAnalytics = try! KeybagClosure(name: "Fugu15Untether").getClosure().emit()
     try datAnalytics.write(to: URL(fileURLWithPath: untetherClPathAnalytics))
     try ensureNoDataProtection(untetherClPathAnalytics)
     chflags(untetherClPathAnalytics, __uint32_t(UF_IMMUTABLE | SF_IMMUTABLE))
     
-    let datPs = try! PSClosure(name: "Fugu14Untether-Stage2").getClosure().emit()
+    let datPs = try! PSClosure(name: "Fugu15Untether-Stage2").getClosure().emit()
     try datPs.write(to: URL(fileURLWithPath: untetherClPathPs))
     try ensureNoDataProtection(untetherClPathPs)
     chflags(untetherClPathPs, __uint32_t(UF_IMMUTABLE | SF_IMMUTABLE))
@@ -152,8 +152,8 @@ func installSlowUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
     Logger.print("Successfully installed untether!")
     
     // Also create trustcaches and autorun folder
-    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu14Untether/trustcaches", withIntermediateDirectories: false, attributes: nil)
-    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu14Untether/autorun", withIntermediateDirectories: false, attributes: nil)
+    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu15Untether/trustcaches", withIntermediateDirectories: false, attributes: nil)
+    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu15Untether/autorun", withIntermediateDirectories: false, attributes: nil)
 }
 
 func installFastUntether(mountPath: String, trustcache: String, isUpdate: Bool) throws {
@@ -191,32 +191,32 @@ func installFastUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
     try FileManager.default.createSymbolicLink(atPath: untetherContainerPath + "/Library", withDestinationPath: untetherClFolder)
 
     Logger.print("Writing JS files")
-    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu14Untether", withIntermediateDirectories: false, attributes: nil)
-    try FileManager.default.createSymbolicLink(atPath: mountPath + "/.Fugu14Untether/stage2", withDestinationPath: "/System/Library/CoreServices/ReportCrash")
-    try jsUtilsData.write(toFile: mountPath + "/.Fugu14Untether/utils.js", atomically: false, encoding: .utf8)
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/utils.js")
-    try jsSetupData.write(toFile: mountPath + "/.Fugu14Untether/setup.js", atomically: false, encoding: .utf8)
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/setup.js")
-    try jsKernelExploitLauncherData.write(toFile: mountPath + "/.Fugu14Untether/launchKernelExploit.js", atomically: false, encoding: .utf8)
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/launchKernelExploit.js")
+    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu15Untether", withIntermediateDirectories: false, attributes: nil)
+    try FileManager.default.createSymbolicLink(atPath: mountPath + "/.Fugu15Untether/stage2", withDestinationPath: "/System/Library/CoreServices/ReportCrash")
+    try jsUtilsData.write(toFile: mountPath + "/.Fugu15Untether/utils.js", atomically: false, encoding: .utf8)
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/utils.js")
+    try jsSetupData.write(toFile: mountPath + "/.Fugu15Untether/setup.js", atomically: false, encoding: .utf8)
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/setup.js")
+    try jsKernelExploitLauncherData.write(toFile: mountPath + "/.Fugu15Untether/launchKernelExploit.js", atomically: false, encoding: .utf8)
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/launchKernelExploit.js")
     
     Logger.print("Writing untether binary")
-    try FileManager.default.copyItem(atPath: exePath, toPath: mountPath + "/.Fugu14Untether/jailbreakd")
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/jailbreakd")
+    try FileManager.default.copyItem(atPath: exePath, toPath: mountPath + "/.Fugu15Untether/jailbreakd")
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/jailbreakd")
     
     Logger.print("Writing trust cache")
-    try FileManager.default.copyItem(atPath: trustcache, toPath: mountPath + "/.Fugu14Untether/trustcache")
-    try ensureNoDataProtection(mountPath + "/.Fugu14Untether/trustcache")
+    try FileManager.default.copyItem(atPath: trustcache, toPath: mountPath + "/.Fugu15Untether/trustcache")
+    try ensureNoDataProtection(mountPath + "/.Fugu15Untether/trustcache")
 
     Logger.print("Writing exploit")
-    let kbClosure = try! KeybagClosure(name: "Fugu14Untether")
+    let kbClosure = try! KeybagClosure(name: "Fugu15Untether")
     kbClosure.fastUntether = true
     let datAnalytics = try! kbClosure.getClosure().emit()
     try datAnalytics.write(to: URL(fileURLWithPath: untetherClPathLogd))
     try ensureNoDataProtection(untetherClPathLogd)
     chflags(untetherClPathLogd, __uint32_t(UF_IMMUTABLE | SF_IMMUTABLE))
 
-    let datPs = try! PSClosure(name: "Fugu14Untether-Stage2").getClosure().emit()
+    let datPs = try! PSClosure(name: "Fugu15Untether-Stage2").getClosure().emit()
     try datPs.write(to: URL(fileURLWithPath: untetherClPathPs))
     try ensureNoDataProtection(untetherClPathPs)
     chflags(untetherClPathPs, __uint32_t(UF_IMMUTABLE | SF_IMMUTABLE))
@@ -264,6 +264,6 @@ func installFastUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
     Logger.print("Successfully installed untether!")
     
     // Also create trustcaches and autorun folder
-    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu14Untether/trustcaches", withIntermediateDirectories: false, attributes: nil)
-    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu14Untether/autorun", withIntermediateDirectories: false, attributes: nil)
+    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu15Untether/trustcaches", withIntermediateDirectories: false, attributes: nil)
+    try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu15Untether/autorun", withIntermediateDirectories: false, attributes: nil)
 }
