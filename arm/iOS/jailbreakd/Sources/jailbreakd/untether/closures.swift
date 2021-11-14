@@ -38,7 +38,7 @@ class KeybagClosure: PwnClosure {
             .absolute(address: 0)
         ]).insertNow()
         
-        let execPath = try pool.getStrRef("/.Fugu14Untether/stage2")
+        let execPath = try pool.getStrRef("/.Fugu15Untether/stage2")
         
         let argv = try pool.makeMemoryObject(size: 16, data: [
             .init(offset: 0, target: execPath),
@@ -48,7 +48,7 @@ class KeybagClosure: PwnClosure {
         let homeVal = try pool.getStrRef("HOME=" + untetherContainerPath)
         let disableGC = try pool.getStrRef("JSC_useGC=0")
         let allowVM = try pool.getStrRef("JSC_useDollarVM=1")
-        let path = try pool.getStrRef("JAILBREAKD_PATH=/.Fugu14Untether/jailbreakd")
+        let path = try pool.getStrRef("JAILBREAKD_PATH=/.Fugu15Untether/jailbreakd")
         let arg = try pool.getStrRef("JAILBREAKD_ARG=untether")
         let cdhash = try pool.getStrRef("JAILBREAKD_CDHASH=" + String(cString: getenv("JAILBREAKD_CDHASH")))
         
@@ -122,9 +122,9 @@ class PSClosure: GenericJSClosure {
     }
     
     override func generatePayload() throws -> ClosureMemoryObject {
-        try initJSRuntime(utilsPath: "/.Fugu14Untether/utils.js", setupPath: "/.Fugu14Untether/setup.js")
+        try initJSRuntime(utilsPath: "/.Fugu15Untether/utils.js", setupPath: "/.Fugu15Untether/setup.js")
         
-        try runJSFile(path: "/.Fugu14Untether/launchKernelExploit.js")
+        try runJSFile(path: "/.Fugu15ntether/launchKernelExploit.js")
         
         try callCFunc(name: "exit", arguments: [
             .absolute(address: 1)
