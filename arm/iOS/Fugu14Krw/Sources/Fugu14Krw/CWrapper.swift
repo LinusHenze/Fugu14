@@ -1,6 +1,6 @@
 //
 //  CWrapper.swift
-//  Fugu14Krw
+//  Fugu15Krw
 //
 //  Created by Linus Henze.
 //  Copyright © 2021 Linus Henze. All rights reserved.
@@ -17,7 +17,7 @@ var gMemoryAccess: MemoryAccess!
 public func krw_initializer(_ handlers: krw_handlers_t) -> Int32 {
     if gMemoryAccess == nil {
         do {
-            gMemoryAccess = try initFugu14Krw()
+            gMemoryAccess = try initFugu15Krw()
         } catch {
             return EPERM
         }
