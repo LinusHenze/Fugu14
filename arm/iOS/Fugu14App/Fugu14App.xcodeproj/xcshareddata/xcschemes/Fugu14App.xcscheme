@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "154F77E025EFEB7700675629"
-               BuildableName = "Fugu14App.app"
-               BlueprintName = "Fugu14App"
-               ReferencedContainer = "container:Fugu14App.xcodeproj">
+               BuildableName = "Fugu15App.app"
+               BlueprintName = "Fugu15App"
+               ReferencedContainer = "container:Fugu15App.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "154F77E025EFEB7700675629"
-            BuildableName = "Fugu14App.app"
-            BlueprintName = "Fugu14App"
-            ReferencedContainer = "container:Fugu14App.xcodeproj">
+            BuildableName = "Fugu15App.app"
+            BlueprintName = "Fugu15App"
+            ReferencedContainer = "container:Fugu15App.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -74,9 +74,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "154F77E025EFEB7700675629"
-            BuildableName = "Fugu14App.app"
-            BlueprintName = "Fugu14App"
-            ReferencedContainer = "container:Fugu14App.xcodeproj">
+            BuildableName = "Fugu15App.app"
+            BlueprintName = "Fugu15App"
+            ReferencedContainer = "container:Fugu15App.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
