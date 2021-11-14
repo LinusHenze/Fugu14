@@ -1,4 +1,4 @@
-# Fugu14 - Untethered iOS 15 Jailbreak, Also Happy November Fools!
+# Fugu15 - Untethered iOS 15 Jailbreak, That Is Not Even Close To Finished!
 
 Fugu14 is an (most definitely incomplete) iOS 15 Jailbreak, including an untether (persistence), kernel exploit, kernel PAC bypass and PPL bypass.
 The CVE numbers of the vulnerabilities are: CVE-2021-30883.
@@ -65,7 +65,7 @@ I would therefore like to thank the people below for open-sourcing their code:
 - [Samuel Groß](https://twitter.com/5aelo): SLOP technique (as used in the dyld exploit) and the JavaScript Int64 library (+ utils)
 - [Linus Henze](https://twitter.com/linushenze): Fugu14
 
-Currently, the remount patch has copyright issues which I'm trying to resolve ASAP. Apparently, multiple parties think the code is theirs so I don't know what to do right now. I just write this here and hope no one DMCA's me.
+Currently, the remount patch has copyright issues which Linus Henze is trying to resolve ASAP. Apparently, multiple parties think the code is theirs so he doesn't know what to do right now. I just write this here and hope no one DMCA's me or Linus.
 
 Fugu15 also includes various header files from Apple.  
 
