@@ -44,11 +44,11 @@ struct ContentView: View {
                     Spacer()
                     Spacer()
                     Button("Show credits", action: {
-                        UIApplication.shared.open(URL(string: "https://github.com/LinusHenze/Fugu14/blob/master/credits.txt")!)
+                        UIApplication.shared.open(URL(string: "https://github.com/30440r/Fugu15/blob/master/credits.txt")!)
                     })
                         .padding()
                     Button("Show license", action: {
-                        UIApplication.shared.open(URL(string: "https://github.com/LinusHenze/Fugu14/blob/master/LICENSE")!)
+                        UIApplication.shared.open(URL(string: "https://github.com/30440r/Fugu15/blob/master/LICENSE")!)
                     })
                     Spacer()
                 }
@@ -85,7 +85,7 @@ struct ContentView: View {
     }
     
     func doSetup() {
-        print("Setting up Fugu14")
+        print("Setting up Fugu15")
         
         // Get rid of old temp closures
         let cacheDir = String(cString: getenv("HOME")) + "/Library/Caches/com.apple.dyld"
@@ -102,7 +102,7 @@ struct ContentView: View {
         print("DYLD dir path: \(dyldDir)")
         
         // Closure Paths
-        let spotlightClosurePath     = dyldDir + "/Fugu14App.closure"
+        let spotlightClosurePath     = dyldDir + "/Fugu15App.closure"
         let keybagClosurePath        = dyldDir + "/stage2.closure"
         let containerMngrClosurePath = dyldDir + "/stage3.closure"
         let psClosurePath            = dyldDir + "/stage4.closure"
