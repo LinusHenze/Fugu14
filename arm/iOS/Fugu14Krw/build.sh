@@ -8,9 +8,9 @@ do
     swiftBuild+=(-Xswiftc "$arg")
 done
 
-echo Building Fugu14Krw
+echo Building Fugu15Krw
 echo ${swiftBuild[*]}
 ${swiftBuild[*]}
 
-echo Signing Fugu14Krw
-codesign -s - .build/release/libFugu14Krw.dylib
+echo Signing Fugu15Krw
+codesign -s - .build/release/libFugu15Krw.dylib
