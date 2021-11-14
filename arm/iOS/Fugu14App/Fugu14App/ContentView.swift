@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Fugu14
+//  Fugu15
 //
 //  Created by Linus Henze.
 //  Copyright © 2021 Linus Henze. All rights reserved.
@@ -21,16 +21,16 @@ struct ContentView: View {
     
     var body: some View {
         if jailbroken {
-            Text("Please reboot into the non-jailbroken state to use the Fugu14 App")
+            Text("Please reboot into the non-jailbroken state to use the Fugu15 App")
                 .padding()
                 .alert(isPresented: self.$showJBAlert) {
-                    Alert(title: Text("Reboot required"), message: Text("Please reboot into the non-jailbroken state to use the Fugu14 App"), dismissButton: .default(Text("OK")))
+                    Alert(title: Text("Reboot required"), message: Text("Please reboot into the non-jailbroken state to use the Fugu15 App"), dismissButton: .default(Text("OK")))
                 }
         } else if showButton {
             ZStack {
-                Button("Setup Fugu14", action: {
+                Button("Setup Fugu15", action: {
                     showButton = false
-                    DispatchQueue(label: "Fugu14Setup").async {
+                    DispatchQueue(label: "Fugu15Setup").async {
                         doSetup()
                     }
                 })
