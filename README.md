@@ -1,6 +1,6 @@
 # Fugu15 - ????-tethered iOS 15 Jailbreak, That Is Not Even Close To Finished!
 
-Fugu15 is an (most definitely incomplete) iOS 15 Jailbreak, including an ~~untether (persistence)~~, kernel exploit, kernel PAC bypass and PPL bypass.
+Fugu15 is an (most definitely incomplete) iOS 15 Jailbreak, including an ~~untether (persistence),~~ kernel exploit, kernel PAC bypass and PPL bypass.
 The CVE numbers of the vulnerabilities I possibly am going to use are: CVE-2021-30883, CVE-2021-30900, CVE-2021-30914, CVE-2021-30906, CVE-2021-30894, CVE-2021-30886, CVE-2021-30909, CVE-2021-30916, CVE-2021-30902, CVE-2021-30889, CVE-2021-30907, CVE-2021-30917, CVE-2021-30903, CVE-2021-30919, & CVE-2021-30881.
 
 # Supported Devices/iOS Versions
