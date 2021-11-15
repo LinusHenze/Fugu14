@@ -10,8 +10,8 @@ def getAnswer(text):
         print("\nCtrl+C pressed, aborting")
         exit(-2)
 
-print("Welcome to the Fugu14 iOS installer.")
-print("This script will build and install Fugu14 on your device.")
+print("Welcome to the Fugu15 iOS installer.")
+print("This script will build and install Fugu15 on your device.")
 print("Before continuing, please read the requirements:")
 print("    - You need a supported device running a supported iOS version (see README.md)")
 print("    - The device must be connected via USB")
@@ -67,7 +67,7 @@ if build_jailbreakd:
 
 print("Getting CDHash of jailbreakd...")
 try:
-    out = subprocess.run(["/usr/bin/codesign", "-dvvv", "arm/iOS/Fugu14App/Fugu14App/jailbreakd"], capture_output=True, check=True)
+    out = subprocess.run(["/usr/bin/codesign", "-dvvv", "arm/iOS/Fugu15App/Fugu15App/jailbreakd"], capture_output=True, check=True)
 except subprocess.CalledProcessError as e:
     print(f"Failed to get CDHash of jailbreakd! Codesign exit status: {e.returncode}")
     print("stdout:")
@@ -89,9 +89,9 @@ if cdhash is None:
 
 print(f"CDHash of jailbreakd: {cdhash}")
 
-print("Patching arm/iOS/Fugu14App/Fugu14App/closures.swift...")
+print("Patching arm/iOS/Fugu15App/Fugu15App/closures.swift...")
 
-with open("arm/iOS/Fugu14App/Fugu14App/closures.swift", "r") as f:
+with open("arm/iOS/Fugu15App/Fugu15App/closures.swift", "r") as f:
     closure_swift = f.read()
 
 lines = []
@@ -101,22 +101,22 @@ for line in closure_swift.split("\n"):
     else:
         lines.append(line)
 
-with open("arm/iOS/Fugu14App/Fugu14App/closures.swift", "w") as f:
+with open("arm/iOS/Fugu15App/Fugu15App/closures.swift", "w") as f:
     f.write("\n".join(lines))
 
 print("Patched")
 
-print("Compiling Fugu14App")
+print("Compiling Fugu15App")
 
 try:
-    subprocess.run(["xcodebuild", "-scheme", "Fugu14App", "-derivedDataPath", "build"], check=True, cwd="arm/iOS/Fugu14App/")
+    subprocess.run(["xcodebuild", "-scheme", "Fugu15App", "-derivedDataPath", "build"], check=True, cwd="arm/iOS/Fugu15App/")
 except subprocess.CalledProcessError as e:
-    print(f"Failed to build Fugu14App! Exit status: {e.returncode}")
-    print("If the build failed due to a codesign error, open arm/iOS/Fugu14App/Fugu14App.xcodeproj in Xcode")
+    print(f"Failed to build Fugu15App! Exit status: {e.returncode}")
+    print("If the build failed due to a codesign error, open arm/iOS/Fugu15App/Fugu15App.xcodeproj in Xcode")
     print("    and edit the Signing options in the Signing & Capabilities section.")
     exit(-1)
 
-print("Successfully built Fugu14App")
+print("Successfully built Fugu15App")
 
 print("Please open the folder containing your unzipped IPSW now.")
 print("Afterwards, open the *largest* dmg in it (containing the root file system)")
@@ -141,7 +141,7 @@ while True:
 print("Creating IPAs...")
 
 try:
-    subprocess.run(["/bin/bash", "build_ipas.sh", "../arm/iOS/Fugu14App/build/Build/Products/Release-iphoneos/Fugu14App.app", mntPath], check=True, cwd="tools")
+    subprocess.run(["/bin/bash", "build_ipas.sh", "../arm/iOS/Fugu15App/build/Build/Products/Release-iphoneos/Fugu15App.app", mntPath], check=True, cwd="tools")
 except subprocess.CalledProcessError as e:
     print(f"Failed to create IPAs! Exit status: {e.returncode}")
     exit(-1)
@@ -151,36 +151,36 @@ print("IPAs created")
 print("Please make sure your device is connected via USB, unlocked and paired to this Mac")
 getAnswer("Press enter to continue or Ctrl+C to abort...")
 
-print("Removing Fugu14App in case it is installed...")
+print("Removing Fugu15App in case it is installed...")
 
 try:
-    subprocess.run(["ideviceinstaller", "-U", "de.linushenze.Fugu14App"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    subprocess.run(["ideviceinstaller", "-U", "de.linushenze.Fugu15App"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 except:
     pass
 
-print("Installing Fugu14 Setup")
+print("Installing Fugu15 Setup")
 
 try:
-    subprocess.run(["ideviceinstaller", "-i", "tools/Fugu14_Setup.ipa"], check=True)
+    subprocess.run(["ideviceinstaller", "-i", "tools/Fugu15_Setup.ipa"], check=True)
 except subprocess.CalledProcessError as e:
     print(f"Failed to install Fugu14App! Exit status: {e.returncode}")
     exit(-1)
 
-print("Successfully installed Fugu14App")
+print("Successfully installed Fugu15App")
 print("Please launch it now on your device and tap on setup")
 print("Then wait until you see 'Done. Please update me now.'")
 getAnswer("Press enter once you are done or Ctrl+C to abort...")
 
-print("Installing Fugu14 exploit")
+print("Installing Fugu15 exploit")
 
 try:
-    subprocess.run(["ideviceinstaller", "-i", "tools/Fugu14_Pwn.ipa"], check=True)
+    subprocess.run(["ideviceinstaller", "-i", "tools/Fugu15_Pwn.ipa"], check=True)
 except subprocess.CalledProcessError as e:
-    print(f"Failed to install Fugu14 exploit! Exit status: {e.returncode}")
+    print(f"Failed to install Fugu15 exploit! Exit status: {e.returncode}")
     exit(-1)
 
 print("\n")
-print("Done! Open the Fugu14App again and follow the on-screen instructions!")
+print("Done! Open the Fugu15App again and follow the on-screen instructions!")
 print("Once you are jailbroken, have rebooted and unlocked your device, connect to it by running the following commands:")
 print("    iproxy 1337 1337  # Terminal Window A")
 print("    nc localhost 1337 # Terminal Window B")
