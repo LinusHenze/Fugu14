@@ -1,3 +1,5 @@
+30440r: Fugu15
+Linus Henze: Fugu14 & Fugu (13)
 Samuel Groß: SLOP technique and the JavaScript Int64 library (+ utils)
 See this post for more information about the SLOP technique: https://googleprojectzero.blogspot.com/2020/01/remote-iphone-exploitation-part-3.html
 Original code: https://bugs.chromium.org/p/project-zero/issues/detail?id=1917#c6
