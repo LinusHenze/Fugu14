@@ -1,4 +1,4 @@
-# Fugu15 - ????-tethered (possibly rootless) iOS 15 Jailbreak, That Is Not Even Close To Finished!
+# Fugu15 - ????-tethered (probably rootless) iOS 15 Jailbreak, That Is Not Even Close To Finished!
 
 Fugu15 is an (most definitely incomplete) iOS 15 Jailbreak, including an ~~untether (persistence),~~ kernel exploit, kernel PAC bypass and PPL bypass.
 The CVE numbers of the vulnerabilities I possibly am going to use are: CVE-2021-30883, CVE-2021-30900, CVE-2021-30914, CVE-2021-30906, CVE-2021-30894, CVE-2021-30886, CVE-2021-30909, CVE-2021-30916, CVE-2021-30902, CVE-2021-30889, CVE-2021-30907, CVE-2021-30917, CVE-2021-30903, CVE-2021-30919, & CVE-2021-30881.
@@ -9,8 +9,8 @@ Fugu15 *should* support all arm64e devices (iPhone XS and newer) on iOS 15, 15.0
 Support for lower versions (down to ?) can be added by editing `arm/shared/ClosurePwn/Sources/ClosurePwn/PwnClosure.swift` and `arm/shared/KernelExploit/Sources/KernelExploit/offsets.swift`.  
 
 arm64 devices are not supported because the exploit to install the Fugu15 App does not work on these devices.  
-However, it is in theory possible to install the untether on them (e.g. via checkra1n).  
-Note that all of this code was written specifically for arm64e, so some changes are required to add arm64 support to the untether.
+However, it is in theory possible to install the ~~untether~~ on them (e.g. via checkra1n).  
+Note that all of this code was written specifically for arm64e, so some changes are required to add arm64 support to the ~~untether~~.
 
 # Features
 
@@ -19,14 +19,14 @@ Note that all of this code was written specifically for arm64e, so some changes 
 - Trustcaches put in `/.Fugu15Untether/trustcaches/` will be loaded automatically
 - Executables put in `/.Fugu15Untether/autorun/` will be launched during boot (make sure to also create a trust cache for your executable!)
 - Supports [Siguza's](https://twitter.com/s1guza) [libkrw](https://github.com/Siguza/libkrw) library (load `/usr/lib/libkrw/libFugu15Krw.dylib` and call `krw_initializer`)
-- (Jailbreak Developers: You can make your jailbreak untethered just by creating a CLI version that supports libkrw, copying it to `/.Fugu15Untether/autorun/` and writing a trust cache to `/.Fugu15Untether/trustcaches/`)
+- (Jailbreak Developers: You can make your jailbreak ~~untethered~~ just by creating a CLI version that supports libkrw, copying it to `/.Fugu15Untether/autorun/` and writing a trust cache to `/.Fugu15Untether/trustcaches/`)
 
 # WARNING
 
-- Messing around with the untether may BOOTLOOP your device
-- The fast untether (disabled unless you edit the source code) HAS NOT BEEN TESTED ON A REAL DEVICE -- DO NOT USE IT
-- Additionally, the fast untether (in case it actually works) is more UNSAFE than the "slow" untether
-- Developers: PLEASE TEST ANY CHANGES YOU MAKE TO THE UNTETHER ON A VIRTUAL DEVICE FIRST
+- Messing around with the ~~untether~~ may BOOTLOOP your device
+- The fast ~~untether~~ (disabled unless you edit the source code) HAS NOT BEEN TESTED ON A REAL DEVICE -- DO NOT USE IT
+- Additionally, the fast ~~untether~~ (in case it actually works) is more UNSAFE than the "slow" untether
+- Developers: PLEASE TEST ANY CHANGES YOU MAKE TO THE ~~UNTETHER~~ ON A VIRTUAL DEVICE FIRST
 
 # Building and Running
 
@@ -42,7 +42,7 @@ In case you get a code signing error, open `arm/iOS/Fugu15App/Fugu15App.xcodepro
 
 # Recovery
 
-So you didn't read the warning section and your device is now in a bootloop. Let's hope you didn't enable the fast untether.  
+So you didn't read the warning section and your device is now in a bootloop. Let's hope you didn't enable the fast ~~untether~~.  
 Anyway, before updating your device to the latest iOS version, try the following first:
 
 1. Install irecovery on your computer
