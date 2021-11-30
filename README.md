@@ -5,7 +5,7 @@ The CVE numbers of the vulnerabilities I possibly am going to use are: CVE-2021-
 
 # Supported Devices/iOS Versions
 
-Fugu15 *should* support all arm64e devices (iPhone XS and newer) on iOS 15, 15.0.1, 15.0.2, & 15.1 Beta 3.  
+Fugu15 *should* support all arm64e devices (iPhone XS and newer) on iOS 15, 15.0.1, 15.0.2, & 15.1 Beta 1, 2, 3.  
 Support for lower versions (down to ?) can be added by editing `arm/shared/ClosurePwn/Sources/ClosurePwn/PwnClosure.swift` and `arm/shared/KernelExploit/Sources/KernelExploit/offsets.swift`.  
 
 arm64 devices are not supported because the exploit to install the Fugu15 App does not work on these devices.  
