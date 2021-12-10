@@ -6,8 +6,6 @@ In the last iOS security update ([15.0.2](https://support.apple.com/en-us/HT2128
 
 Therefore, I decided to take a quick look, bindiff the patch, and identify the root cause of the bug. After bindiffing and reversing, I saw that the bug is great, and I decided to write this short blogpost, which I hope you'll find helpful. I really want to publish my bindiff findings as close to the patch release as possible, so there will be no full exploit here; However, I did manage to build a really nice and stable POC that results in a great panic at the end :)
 
-Sorry in advance for any English mistakes, I prioritized time over grammar (good thing we have automatic spell checkers:P ).
-
 ## The vulnerability
 
 First thing first, let's view the patched function(s) to understand the bug. Before the patch, there were some different instances of a size calculation without checks for intgerer overflow, in different flows of *new_from_data*. These functions attempt to allocate a buffer that is used to store a table content sent by the user.
