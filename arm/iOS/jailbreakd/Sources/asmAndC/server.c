@@ -33,30 +33,30 @@ int runCommand(FILE *f, char *argv[]) {
         dup2(fileno(f), STDIN_FILENO);
         dup2(fileno(f), STDOUT_FILENO);
         dup2(fileno(f), STDERR_FILENO);
-        
+
         execve(argv[0], argv, environ);
         fprintf(stderr, "child: Failed to launch! Error: %s\r\n", strerror(errno));
         exit(-1);
     }
-    
+
     // Now wait for child
     int status;
     waitpid(pid, &status, 0);
-    
+
     return WEXITSTATUS(status);
 }
 
 bool readToNewline(FILE *f, char *buf, size_t size) {
     size_t cmdOffset = 0;
     memset(buf, 0, size);
-    
+
     while (1) {
         // Read incoming data
         size_t status = fread(buf + cmdOffset, 1, 1, f);
         if (status < 1) {
             return false;
         }
-        
+
         cmdOffset++;
         if (cmdOffset >= (size-1)) {
             fprintf(f, "\r\nERROR: Command to long!\r\n");
@@ -64,20 +64,20 @@ bool readToNewline(FILE *f, char *buf, size_t size) {
             memset(buf, 0, size);
             continue;
         }
-        
+
         // Check if there is a newline somewhere
         char *loc = strstr(buf, "\n");
         if (!loc) {
             continue;
         }
-        
+
         // There is
         if ((loc - 1) >= buf) {
             if (*(loc - 1) == '\r') {
                 loc--;
             }
         }
-        
+
         *loc = 0;
         return true;
     }
@@ -85,25 +85,25 @@ bool readToNewline(FILE *f, char *buf, size_t size) {
 
 char *getParameter(char *buf, int param) {
     char *loc = buf;
-    
+
     for (int i = 0; i < param; i++) {
         loc = strstr(loc, " ");
         if (!loc) {
             return NULL;
         }
-        
+
         loc++; // Skip over the space
     }
-    
+
     char *next = strstr(loc, " ");
     if (!next) {
         return strdup(loc);
     }
-    
+
     *next = 0;
     char *data = strdup(loc);
     *next = ' ';
-    
+
     return data;
 }
 
@@ -116,7 +116,7 @@ void printInfo(FILE *f, char *file) {
         fprintf(f, "info: %s\r\n", strerror(errno));
         return;
     }
-    
+
     fprintf(f, "---------------------------\r\n");
     fprintf(f, "Information for %s\r\n", file);
     fprintf(f, "---------------------------\r\n");
@@ -125,10 +125,10 @@ void printInfo(FILE *f, char *file) {
     } else {
         fprintf(f, "File Size: \t\t1 byte\r\n");
     }
-    
+
     //fprintf(f, "Number of Links: \t%d\r\n", fileStat.st_nlink);
     //fprintf(f, "File inode: \t\t%llu\r\n", fileStat.st_ino);
-    
+
     fprintf(f, "File Permissions: \t");
     fprintf(f, (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
     fprintf(f, (fileStat.st_mode & S_IRUSR) ? "r" : "-");
@@ -151,7 +151,7 @@ void printInfo(FILE *f, char *file) {
     fprintf(f, "\r\n");
     fprintf(f, "File Owner UID: \t%d\r\n", fileStat.st_uid);
     fprintf(f, "File Owner GID: \t%d\r\n", fileStat.st_gid);
-    
+
     if (S_ISLNK(fileStat.st_mode)) {
         fprintf(f, "\r\n");
         fprintf(f, "The file is a symbolic link.\r\n");
@@ -179,6 +179,8 @@ void printHelp(FILE *f) {
     fprintf(f, "mkdir <name>:             Create a directory\r\n");
     fprintf(f, "exec <program> <args>:    Launch a program\r\n");
     fprintf(f, "bash:                     Launch bash\r\n");
+    fprintf(f, "sb:                       Update SpringBoard plist\r\n");
+    fprintf(f, "krw:                      Initialize libkrw support\r\n");
     fprintf(f, "help:                     Print this help\r\n");
     fprintf(f, "\r\n");
 }
@@ -188,22 +190,22 @@ void handleConnection(int socket) {
     if (f == NULL) {
         return;
     }
-    
+
     fprintf(f, "iDownload version " VERSION " ready.\r\n");
-    
+
     char *cmdBuffer = malloc(2048);
-    
+
     while (1) {
         fprintf(f, "iDownload> ");
-        
+
         // Read a command
         if (!readToNewline(f, cmdBuffer, 2048)) {
             break;
         }
-        
+
         // Guaranteed to always exist
         char *cmd = getParameter(cmdBuffer, 0);
-        
+
         // Execute it
         if (strcmp(cmd, "help") == 0) {
             printHelp(f);
@@ -217,7 +219,7 @@ void handleConnection(int socket) {
             char cwd[PATH_MAX];
             memset(cwd, 0, PATH_MAX);
             getcwd(cwd, PATH_MAX);
-            
+
             fprintf(f, "%s\r\n", cwd);
         } else if (strcmp(cmd, "cd") == 0) {
             char *param = getParameter(cmdBuffer, 1);
@@ -225,7 +227,7 @@ void handleConnection(int socket) {
                 if (chdir(param) < 0) {
                     fprintf(f, "cd: %s\r\n", strerror(errno));
                 }
-                
+
                 free(param);
             } else {
                 fprintf(f, "Usage: cd <directory>\r\n");
@@ -235,23 +237,23 @@ void handleConnection(int socket) {
             if (!param) {
                 param = strdup(".");
             }
-            
+
             DIR *d;
             struct dirent *dir;
             d = opendir(param);
             if (d) {
                 readdir(d); // Skip .
                 readdir(d); // Skip ..
-                
+
                 while ((dir = readdir(d)) != NULL) {
                     fprintf(f, "%s\r\n", dir->d_name);
                 }
-                
+
                 closedir(d);
             } else {
                 fprintf(f, "ls: %s\r\n", strerror(errno));
             }
-            
+
             free(param);
         } else if (strcmp(cmd, "clear") == 0) {
             fprintf(f, "\E[H\E[J");
@@ -274,19 +276,19 @@ void handleConnection(int socket) {
                                         offset = 0;
                                         break;
                                     }
-                                    
+
                                     offset++;
                                 }
-                                
+
                                 if (offset == size) {
                                     fwrite(buffer, size, 1, file);
                                     fprintf(f, "\r\nFile written.\r\n");
                                 } else {
                                     fprintf(f, "\r\nFailed to write file!\r\n");
                                 }
-                                
+
                                 fclose(file);
-                                
+
                                 free(buffer);
                             } else {
                                 fprintf(f, "write: %s\r\n", strerror(errno));
@@ -297,12 +299,12 @@ void handleConnection(int socket) {
                     } else {
                         fprintf(f, "write: %s\r\n", strerror(errno));
                     }
-                    
+
                     free(length);
                 } else {
                     fprintf(f, "Usage: write <file> <length in bytes>\r\n");
                 }
-                
+
                 free(name);
             } else {
                 fprintf(f, "Usage: write <file> <length in bytes>\r\n");
@@ -317,16 +319,16 @@ void handleConnection(int socket) {
                         fseek(srcFile, 0, SEEK_END);
                         size_t size = ftell(srcFile);
                         fseek(srcFile, 0, SEEK_SET);
-                        
+
                         char *buffer = malloc(size + 1);
                         memset(buffer, 0, size + 1);
                         if (buffer) {
                             fread(buffer, size, 1, srcFile);
-                            
+
                             FILE *dstFile = fopen(dst, "wb+");
                             if (dstFile) {
                                 fwrite(buffer, size, 1, dstFile);
-                                
+
                                 fclose(dstFile);
                             } else {
                                 fprintf(f, "cp: dst: %s\r\n", strerror(errno));
@@ -334,18 +336,18 @@ void handleConnection(int socket) {
                         } else {
                             fprintf(f, "cp: src: %s\r\n", strerror(errno));
                         }
-                        
+
                         free(buffer);
                         fclose(srcFile);
                     } else {
                         fprintf(f, "cp: src: %s\r\n", strerror(errno));
                     }
-                    
+
                     free(dst);
                 } else {
                     fprintf(f, "Usage: cp <src> <dst>\r\n");
                 }
-                
+
                 free(src);
             } else {
                 fprintf(f, "Usage: cp <src> <dst>\r\n");
@@ -358,7 +360,7 @@ void handleConnection(int socket) {
                     fseek(file, 0, SEEK_END);
                     size_t size = ftell(file);
                     fseek(file, 0, SEEK_SET);
-                    
+
                     char *buffer = malloc(size + 1);
                     memset(buffer, 0, size + 1);
                     if (buffer) {
@@ -367,13 +369,13 @@ void handleConnection(int socket) {
                     } else {
                         fprintf(f, "cat: %s\r\n", strerror(errno));
                     }
-                    
+
                     free(buffer);
                     fclose(file);
                 } else {
                     fprintf(f, "cat: %s\r\n", strerror(errno));
                 }
-                
+
                 free(param);
             } else {
                 fprintf(f, "Usage: cat <file>\r\n");
@@ -384,7 +386,7 @@ void handleConnection(int socket) {
                 if (unlink(param) < 0) {
                     fprintf(f, "rm: %s\r\n", strerror(errno));
                 }
-                
+
                 free(param);
             } else {
                 fprintf(f, "Usage: rm <file>\r\n");
@@ -402,12 +404,12 @@ void handleConnection(int socket) {
                     } else {
                         fprintf(f, "Usage: chmod <mode, octal> <file>\r\n");
                     }
-                    
+
                     free(param);
                 } else {
                     fprintf(f, "Usage: chmod <mode, octal> <file>\r\n");
                 }
-                
+
                 free(modeStr);
             } else {
                 fprintf(f, "Usage: chmod <mode, octal> <file>\r\n");
@@ -424,17 +426,17 @@ void handleConnection(int socket) {
                         if (chown(param, (uid_t) uid, (gid_t) gid) < 0) {
                             fprintf(f, "chown: %s\r\n", strerror(errno));
                         }
-                        
+
                         free(param);
                     } else {
                         fprintf(f, "Usage: chown <uid> <gid> <file>\r\n");
                     }
-                    
+
                     free(gid_str);
                 } else {
                     fprintf(f, "Usage: chown <uid> <gid> <file>\r\n");
                 }
-                
+
                 free(uid_str);
             } else {
                 fprintf(f, "Usage: chown <uid> <gid> <file>\r\n");
@@ -445,7 +447,7 @@ void handleConnection(int socket) {
                 if (rmdir(param) < 0) {
                     fprintf(f, "rmdir: %s\r\n", strerror(errno));
                 }
-                
+
                 free(param);
             } else {
                 fprintf(f, "Usage: rmdir <folder, empty>\r\n");
@@ -464,7 +466,7 @@ void handleConnection(int socket) {
                 if (mkdir(param, 0777) < 0) {
                     fprintf(f, "mkdir: %s\r\n", strerror(errno));
                 }
-                
+
                 free(param);
             } else {
                 fprintf(f, "Usage: mkdir <name>\r\n");
@@ -478,31 +480,31 @@ void handleConnection(int socket) {
                     if (!param) {
                         break;
                     }
-                    
+
                     free(param);
                 }
-                
+
                 char **buf = malloc(ctr * sizeof(char*));
                 buf[0] = param;
-                
+
                 ctr = 2;
                 while (1) {
                     char *param = getParameter(cmdBuffer, ctr);
                     if (!param) {
                         break;
                     }
-                    
+
                     buf[(ctr++) - 1] = param;
                 }
-                
+
                 buf[ctr - 1] = NULL;
-                
+
                 int status = runCommand(f, buf);
                 while (*buf) {
                     free(*buf);
                     buf++;
                 }
-                
+
                 fprintf(f, "exec: Child status: %d\r\n", status);
             } else {
                 fprintf(f, "Usage: exec <program> <args>\r\n");
@@ -511,10 +513,10 @@ void handleConnection(int socket) {
             fprintf(f, "Running bash.\r\n");
             fprintf(f, "Although you might not see a prompt, you can still run commands.\r\n");
             fflush(f);
-            
+
             char *buf[2] = { "/bin/bash", NULL };
             int status = runCommand(f, buf);
-            
+
             fprintf(f, "exec: Bash exit status: %d\r\n", status);
         } else if (strcmp(cmd, "sb") == 0) {
             fprintf(f, "Updating Springboard Plist...\r\n");
@@ -523,7 +525,7 @@ void handleConnection(int socket) {
         } else if (strcmp(cmd, "krw") == 0) {
             fprintf(f, "Initializing libkrw support...\r\n");
             fflush(f);
-            
+
             int res = init_libkrw_support();
             if (res == 0) {
                 fprintf(f, "Inited libkrw support!\r\n");
@@ -533,10 +535,10 @@ void handleConnection(int socket) {
         } else {
             fprintf(f, "Unknown command %s!\r\n", cmdBuffer);
         }
-        
+
         free(cmd);
     }
-    
+
     fclose(f);
 }
 
@@ -546,42 +548,42 @@ void launchCServer() {
         if (server_fd < 0) {
             exit(-1);
         }
-        
+
         dup2(server_fd, 10);
         close(server_fd);
         server_fd = 10;
-        
+
         int option = 1;
-        
+
         if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEPORT, &option, sizeof(option)) < 0) {
             exit(-1);
         }
-        
+
         struct sockaddr_in server;
-        
+
         memset(&server, 0, sizeof (server));
         server.sin_family = AF_INET;
         server.sin_addr.s_addr = inet_addr("127.0.0.1");
         server.sin_port = htons(1337);
-        
+
         if (bind(server_fd, (struct sockaddr*) &server, sizeof(server)) < 0) {
             exit(-1);
         }
-        
+
         if (listen(server_fd, SOMAXCONN) < 0) {
             exit(-1);
         }
-        
+
         while (1) {
             int new_socket = accept(server_fd, NULL, NULL);
             if (new_socket == -1) {
                 if (errno == EINTR) {
                     continue;
                 }
-                
+
                 exit(-1);
             }
-            
+
             dispatch_async(dispatch_queue_create(NULL, NULL), ^{
                 handleConnection(new_socket);
             });
