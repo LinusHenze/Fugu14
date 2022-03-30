@@ -1,6 +1,6 @@
 //
-//  Fugu14Krw.swift
-//  Fugu14Krw
+//  Fugu15Krw.swift
+//  Fugu15Krw
 //
 //  Created by Linus Henze.
 //  Copyright © 2021 Linus Henze. All rights reserved.
@@ -11,7 +11,7 @@ import Darwin
 import JailbreakUtils
 import KernelExploit
 
-public enum Fugu14KrwInitError: Error {
+public enum Fugu15KrwInitError: Error {
     case noServerPort
     case taskInfoFailed
     case noMagicData
@@ -19,12 +19,12 @@ public enum Fugu14KrwInitError: Error {
     case failedToCopyPort
 }
 
-public func initFugu14Krw() throws -> MemoryAccess {
+public func initFugu15Krw() throws -> MemoryAccess {
     // First get server port
     var svPort: mach_port_t = 0
     var kr = host_get_special_port(mach_host_self(), HOST_LOCAL_NODE, HOST_CLOSURED_PORT, &svPort)
     guard kr == KERN_SUCCESS else {
-        throw Fugu14KrwInitError.noServerPort
+        throw Fugu15KrwInitError.noServerPort
     }
     
     // Find out where the "magic" page is
@@ -35,7 +35,7 @@ public func initFugu14Krw() throws -> MemoryAccess {
     }
     
     guard kr == KERN_SUCCESS else {
-        throw Fugu14KrwInitError.taskInfoFailed
+        throw Fugu15KrwInitError.taskInfoFailed
     }
     
     // Copy address
@@ -47,7 +47,7 @@ public func initFugu14Krw() throws -> MemoryAccess {
     }
     
     guard kr == KERN_SUCCESS else {
-        throw Fugu14KrwInitError.noMagicData
+        throw Fugu15KrwInitError.noMagicData
     }
     
     let magicPage = data.getGeneric(type: vm_address_t.self)
@@ -59,7 +59,7 @@ public func initFugu14Krw() throws -> MemoryAccess {
     }
      
     guard kr == KERN_SUCCESS else {
-        throw Fugu14KrwInitError.noMagicData
+        throw Fugu15KrwInitError.noMagicData
     }
     
     func copyPort(offset: UInt) throws -> mach_port_t {
@@ -68,7 +68,7 @@ public func initFugu14Krw() throws -> MemoryAccess {
         var type: mach_msg_type_name_t = 0
         let kr = mach_port_extract_right(svPort, raw, mach_msg_type_name_t(MACH_MSG_TYPE_COPY_SEND), &res, &type)
         guard kr == KERN_SUCCESS else {
-            throw Fugu14KrwInitError.failedToCopyPort
+            throw Fugu15KrwInitError.failedToCopyPort
         }
         
         return res
@@ -77,7 +77,7 @@ public func initFugu14Krw() throws -> MemoryAccess {
     // Parse magic data
     let magicValue = data.getGeneric(type: UInt32.self)
     guard magicValue == 0x75677546 else {
-        throw Fugu14KrwInitError.badMagicData
+        throw Fugu15KrwInitError.badMagicData
     }
     
     let dkSvPort = try copyPort(offset: 0x4)

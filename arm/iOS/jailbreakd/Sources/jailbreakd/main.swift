@@ -135,7 +135,7 @@ func doInstall(pe: PostExploitation, doUpdate: Bool = false) {
         showMessage(withOptions: [
             kCFUserNotificationAlertTopMostKey: 1 as NSNumber,
             kCFUserNotificationAlertHeaderKey: "Reboot required" as NSString,
-            kCFUserNotificationAlertMessageKey: "Fugu14 successfully \(doUpdate ? "updated" : "installed") the untether. To complete the \(doUpdate ? "update" : "installation"), your device needs to be rebooted." as NSString,
+            kCFUserNotificationAlertMessageKey: "Fugu15 successfully \(doUpdate ? "updated" : "installed") the untether. To complete the \(doUpdate ? "update" : "installation"), your device needs to be rebooted." as NSString,
             kCFUserNotificationDefaultButtonTitleKey: "Reboot now" as NSString
         ])
         

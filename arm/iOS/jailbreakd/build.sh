@@ -20,7 +20,7 @@ strip -s keep .build/release/jailbreakd
 echo Signing jailbreakd
 codesign -s "$CODESIGN_IDENTITY" --entitlements jailbreakd.entitlements .build/release/jailbreakd
 
-cp .build/release/jailbreakd ../Fugu14App/Fugu14App/jailbreakd
+cp .build/release/jailbreakd ../Fugu15App/Fugu15App/jailbreakd
 
 CDHash=$(codesign -dvvv .build/release/jailbreakd 2>&1 | grep 'CDHash=' | sed 's/CDHash=//g')
 echo CDHash of jailbreakd: $CDHash

@@ -104,7 +104,7 @@ class MountPatch {
     }
     
     private static func isRenameRequired() throws -> Bool {
-        if access("/.Fugu14Untether", F_OK) == 0 {
+        if access("/.Fugu15Untether", F_OK) == 0 {
             return false
         }
         

@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Fugu14Krw",
+    name: "Fugu15Krw",
     platforms: [
         .iOS(.v14),
         .macOS(.v11) // Just to test compilation, not really supported
@@ -12,9 +12,9 @@ let package = Package(
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "Fugu14Krw",
+            name: "Fugu15Krw",
             type: .dynamic,
-            targets: ["Fugu14Krw"]),
+            targets: ["Fugu15Krw"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -26,7 +26,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .systemLibrary(name: "LibKRW_Plugin"),
         .target(
-            name: "Fugu14Krw",
+            name: "Fugu15Krw",
             dependencies: ["JailbreakUtils", "KernelExploit", "LibKRW_Plugin"]),
     ]
 )

@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Fugu14
+//  Fugu15
 //
 //  Created by Linus Henze.
 //  Copyright © 2021 Linus Henze. All rights reserved.
@@ -21,16 +21,16 @@ struct ContentView: View {
     
     var body: some View {
         if jailbroken {
-            Text("Please reboot into the non-jailbroken state to use the Fugu14 App")
+            Text("Please reboot into the non-jailbroken state to use the Fugu15 App")
                 .padding()
                 .alert(isPresented: self.$showJBAlert) {
-                    Alert(title: Text("Reboot required"), message: Text("Please reboot into the non-jailbroken state to use the Fugu14 App"), dismissButton: .default(Text("OK")))
+                    Alert(title: Text("Reboot required"), message: Text("Please reboot into the non-jailbroken state to use the Fugu15 App"), dismissButton: .default(Text("OK")))
                 }
         } else if showButton {
             ZStack {
-                Button("Setup Fugu14", action: {
+                Button("Setup Fugu15", action: {
                     showButton = false
-                    DispatchQueue(label: "Fugu14Setup").async {
+                    DispatchQueue(label: "Fugu15Setup").async {
                         doSetup()
                     }
                 })
@@ -44,11 +44,11 @@ struct ContentView: View {
                     Spacer()
                     Spacer()
                     Button("Show credits", action: {
-                        UIApplication.shared.open(URL(string: "https://github.com/LinusHenze/Fugu14/blob/master/credits.txt")!)
+                        UIApplication.shared.open(URL(string: "https://github.com/30440r/Fugu15/blob/master/credits.txt")!)
                     })
                         .padding()
                     Button("Show license", action: {
-                        UIApplication.shared.open(URL(string: "https://github.com/LinusHenze/Fugu14/blob/master/LICENSE")!)
+                        UIApplication.shared.open(URL(string: "https://github.com/30440r/Fugu15/blob/master/LICENSE")!)
                     })
                     Spacer()
                 }
@@ -85,7 +85,7 @@ struct ContentView: View {
     }
     
     func doSetup() {
-        print("Setting up Fugu14")
+        print("Setting up Fugu15")
         
         // Get rid of old temp closures
         let cacheDir = String(cString: getenv("HOME")) + "/Library/Caches/com.apple.dyld"
@@ -102,7 +102,7 @@ struct ContentView: View {
         print("DYLD dir path: \(dyldDir)")
         
         // Closure Paths
-        let spotlightClosurePath     = dyldDir + "/Fugu14App.closure"
+        let spotlightClosurePath     = dyldDir + "/Fugu15App.closure"
         let keybagClosurePath        = dyldDir + "/stage2.closure"
         let containerMngrClosurePath = dyldDir + "/stage3.closure"
         let psClosurePath            = dyldDir + "/stage4.closure"

@@ -23,7 +23,7 @@ struct ContentView: View {
                 VStack {
                     Button(alreadyInstalled ? "Restore RootFS" : installButtonStr, action: {
                         showButton = false
-                        DispatchQueue(label: "Fugu14").async {
+                        DispatchQueue(label: "Fugu15").async {
                             if alreadyInstalled {
                                 _ = launchServer(uninstall: true)
                             } else {
@@ -41,7 +41,7 @@ struct ContentView: View {
                     if alreadyInstalled {
                         Button("Update Untether", action: {
                             showButton = false
-                            DispatchQueue(label: "Fugu14").async {
+                            DispatchQueue(label: "Fugu15").async {
                                 if let comm = launchServer() {
                                     doUpdate(comm: comm)
                                 }
@@ -59,11 +59,11 @@ struct ContentView: View {
                     Spacer()
                     Spacer()
                     Button("Show credits", action: {
-                        UIApplication.shared.open(URL(string: "https://github.com/LinusHenze/Fugu14/blob/master/credits.txt")!)
+                        UIApplication.shared.open(URL(string: "https://github.com/LinusHenze/Fugu15/blob/master/credits.txt")!)
                     })
                         .padding()
                     Button("Show license", action: {
-                        UIApplication.shared.open(URL(string: "https://github.com/LinusHenze/Fugu14/blob/master/LICENSE")!)
+                        UIApplication.shared.open(URL(string: "https://github.com/LinusHenze/Fugu15/blob/master/LICENSE")!)
                     })
                     Spacer()
                 }
@@ -88,7 +88,7 @@ struct ContentView: View {
     }
     
     init() {
-        alreadyInstalled = access("/.Fugu14Untether", F_OK) == 0
+        alreadyInstalled = access("/.Fugu15Untether", F_OK) == 0
     }
     
     func print(_ text: String, ender: String = "\n") {
@@ -138,7 +138,7 @@ struct ContentView: View {
         try? controlFromChild.fileHandleForWriting.close()
         try? logFromChild.fileHandleForWriting.close()
         
-        DispatchQueue(label: "Fugu14-Logging").async {
+        DispatchQueue(label: "Fugu15-Logging").async {
             while true {
                 do {
                     let data = try logFromChild.fileHandleForReading.read(upToCount: 1)

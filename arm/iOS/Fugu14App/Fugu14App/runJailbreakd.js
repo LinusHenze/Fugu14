@@ -1,6 +1,6 @@
 //
 //  runJailbreakd.js
-//  Fugu14
+//  Fugu15
 //
 //  Created by Linus Henze.
 //  Copyright © 2021 Linus Henze. All rights reserved.
