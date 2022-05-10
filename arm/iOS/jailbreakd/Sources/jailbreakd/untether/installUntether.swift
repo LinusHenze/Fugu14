@@ -37,7 +37,7 @@ func installSlowUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
         throw UntetherInstallError.failedToLocateJailbreakd
     }
     
-    let targetUGID = 264
+    let targetUGID = 263
     let targetExePath = mountPath + "/System/Library/PrivateFrameworks/CoreAnalytics.framework/Support/analyticsd"
     let replacementExePath = "/usr/libexec/keybagd"
     
@@ -62,12 +62,12 @@ func installSlowUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
     
     Logger.print("Creating container files...")
     
-    try? FileManager.default.removeItem(atPath: untetherContainerPath)
     try? FileManager.default.removeItem(atPath: untetherClFolder)
+    try? FileManager.default.removeItem(atPath: untetherContainerPath)
     
     try FileManager.default.createDirectory(atPath: untetherContainerPath, withIntermediateDirectories: true, attributes: [.ownerAccountID: targetUGID, .groupOwnerAccountID: targetUGID])
     try FileManager.default.createDirectory(atPath: untetherClFolder + "/Caches/com.apple.dyld", withIntermediateDirectories: true, attributes: [.ownerAccountID: targetUGID, .groupOwnerAccountID: targetUGID])
-    try FileManager.default.createSymbolicLink(atPath: untetherContainerPath + "/Library", withDestinationPath: untetherClFolder)
+    try? FileManager.default.createSymbolicLink(atPath: untetherContainerPath + "/Library", withDestinationPath: untetherClFolder)
     
     Logger.print("Writing JS files")
     try? FileManager.default.createDirectory(atPath: mountPath + "/.Fugu14Untether", withIntermediateDirectories: false, attributes: nil)
@@ -109,8 +109,8 @@ func installSlowUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
             var nMasterPasswd = ""
             for line in lines {
                 if line.starts(with: "_analyticsd") {
-                    nMasterPasswd.append("_analyticsd:*:264:264::0:0:Haxx Daemon:" + untetherContainerPath + ":/usr/bin/false\n")
                     nMasterPasswd.append(line.replacingOccurrences(of: "_analyticsd", with: "_nanalyticsd") + "\n")
+                    nMasterPasswd.append("_analyticsd:*:263:263::0:0:Haxx Daemon:" + untetherContainerPath + ":/usr/bin/false\n")
                 } else {
                     nMasterPasswd.append(line + "\n")
                 }
@@ -126,8 +126,9 @@ func installSlowUntether(mountPath: String, trustcache: String, isUpdate: Bool) 
             var nPasswd = ""
             for line in lines {
                 if line.starts(with: "_analyticsd") {
-                    nPasswd.append("_analyticsd:*:264:264:Haxx Daemon:" + untetherContainerPath + ":/usr/bin/false\n")
                     nPasswd.append(line.replacingOccurrences(of: "_analyticsd", with: "_nanalyticsd") + "\n")
+                    nPasswd.append("_analyticsd:*:263:263:Haxx Daemon:" + untetherContainerPath + ":/usr/bin/false\n")
+                    
                 } else {
                     nPasswd.append(line + "\n")
                 }
