@@ -91,8 +91,10 @@ struct ContentView: View {
         alreadyInstalled = access("/.Fugu14Untether", F_OK) == 0
     }
     
-    func print(_ text: String, ender: String = "\n") {
-        labelText += text + ender
+    private func print(_ text: String, ender: String = "\n") {
+        DispatchQueue.main.async {
+            labelText += text + ender
+        }
     }
     
     func launchServer(uninstall: Bool = false) -> ProcessCommunication? {
