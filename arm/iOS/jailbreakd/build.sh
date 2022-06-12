@@ -15,7 +15,7 @@ echo ${swiftBuild[*]}
 ${swiftBuild[*]}
 
 echo Stripping jailbreakd
-strip -s keep .build/release/jailbreakd
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip -s keep .build/release/jailbreakd
 
 echo Signing jailbreakd
 codesign -s "$CODESIGN_IDENTITY" --entitlements jailbreakd.entitlements .build/release/jailbreakd
